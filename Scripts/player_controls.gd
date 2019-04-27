@@ -13,6 +13,8 @@ onready var enemyCount : int = 0
 enum State {NORMAL, ATTACK}
 onready var currentState = State.NORMAL
 
+signal healthChanged(newHealth)
+
 func _ready():
     pass
 
@@ -21,11 +23,9 @@ func changeState(newState):
 
 func takeDamage(amount):
     health -= amount
-    print("Player health: " + str(health))
     if health <= 0:
         health = 0
-        #TODO death
-        print("Player is dead!")
+    emit_signal("healthChanged", health)
 
 func updateSlashPivot():
     if not currentState == State.ATTACK:
