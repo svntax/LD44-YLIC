@@ -1,14 +1,22 @@
 extends Node2D
 
 onready var player = get_tree().get_nodes_in_group("Players")[0]
-onready var upgradesMenu = get_node("UILayer").get_node("UpgradesMenu")
+onready var upgradesMenu = get_node("UILayer/UpgradesRoot/UpgradesMenu")
 
-onready var enemyCount = get_tree().get_nodes_in_group("Enemies").size()
+onready var transitions : AnimationPlayer = get_node("TransitionAnimationPlayer")
+
+onready var enemyCount : int = get_tree().get_nodes_in_group("Enemies").size()
 
 var basicEnemy = load("res://Scenes/enemy_basic.tscn")
 var bullEnemy = load("res://Scenes/bull.tscn")
 var archerEnemy = load("res://Scenes/archer.tscn")
 var casterEnemy = load("res://Scenes/caster.tscn");
+
+onready var layoutRoot = get_node("LayoutRoot")
+
+var arenaLayouts = {
+layoutBasic = load("res://Scenes/LayoutBasic")
+}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -16,6 +24,7 @@ func _ready():
 
 #TODO spawn new layout and wave of enemies
 func spawnNewLayout():
+    #TODO delete and spawn new layout
     for i in range(3):
         enemyCount += 1
         var enemy
@@ -33,9 +42,15 @@ func enemyDestroyed():
     if enemyCount <= 0: #End of wave
         Globals.CURRENT_HEALTH = player.health
         upgradesMenu.syncValues()
-        upgradesMenu.show()
+        upgradesMenu.isActive = true
+        transitions.play("upgrades_menu_transition")
         get_tree().paused = true
 
 func _on_UpgradesMenu_confirmedUpgrades():
     player.updateStats()
     spawnNewLayout()
+    transitions.play("upgrades_menu_confirmed_transition")
+
+func _on_TransitionAnimationPlayer_animation_finished(anim_name):
+    if anim_name == "upgrades_menu_confirmed_transition":
+        get_tree().paused = false

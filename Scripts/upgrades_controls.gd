@@ -7,6 +7,8 @@ onready var speedUpgrade = get_node("CenterContainer").get_node("VBoxContainer")
 onready var speed = Globals.CURRENT_SPEED
 onready var health = Globals.CURRENT_HEALTH
 
+onready var isActive = false
+
 signal confirmedUpgrades()
 
 func _ready():
@@ -25,22 +27,24 @@ func syncValues():
     updateLabels()
 
 func _on_SpeedIncrease_pressed():
-    if health > SPEED_COST:
-        health -= SPEED_COST
-        speed += 5 #TODO make this a variable scale
-
-    updateLabels()
+    if isActive:
+        if health > SPEED_COST:
+            health -= SPEED_COST
+            speed += 5 #TODO make this a variable scale
+    
+        updateLabels()
 
 func _on_SpeedDecrease_pressed():
-    if speed > Globals.MIN_SPEED: #TODO make htis a variable scale
-        speed -= 5
-        health += SPEED_COST
-
-    updateLabels()
+    if isActive:
+        if speed > Globals.MIN_SPEED: #TODO make htis a variable scale
+            speed -= 5
+            health += SPEED_COST
+    
+        updateLabels()
 
 func _on_ConfirmButton_pressed():
-    Globals.CURRENT_SPEED = speed
-    Globals.CURRENT_HEALTH = health
-    get_tree().paused = false
-    emit_signal("confirmedUpgrades")
-    self.hide()
+    if isActive:
+        isActive = false
+        Globals.CURRENT_SPEED = speed
+        Globals.CURRENT_HEALTH = health
+        emit_signal("confirmedUpgrades")
