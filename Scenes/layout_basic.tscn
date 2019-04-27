@@ -5,10 +5,10 @@
 [node name="LayoutBasic" type="Node2D"]
 
 [node name="EnemyBasic" parent="." instance=ExtResource( 1 )]
-position = Vector2( 106.071, 58.977 )
+position = Vector2( 97.539, 106.756 )
 
 [node name="EnemyBasic2" parent="." instance=ExtResource( 1 )]
-position = Vector2( 215.809, 67.3954 )
+position = Vector2( 196.47, 124.276 )
 
 [node name="TempCamera" type="Camera2D" parent="."]
 anchor_mode = 0
