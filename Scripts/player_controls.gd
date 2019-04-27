@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
 onready var health : int = Globals.CURRENT_HEALTH
-onready var walkSpeed : float = 96
+onready var walkSpeed : float = Globals.CURRENT_SPEED
 onready var attackDashSpeed : float = 8
 onready var walkVel : Vector2 = Vector2()
 
