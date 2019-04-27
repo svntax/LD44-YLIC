@@ -1,13 +1,23 @@
 extends KinematicBody2D
 
-onready var health = Globals.CURRENT_HEALTH
-onready var walkSpeed = 96
-onready var walkVel = Vector2()
+onready var health : int = Globals.CURRENT_HEALTH
+onready var walkSpeed : float = 96
+onready var attackDashSpeed : float = 8
+onready var walkVel : Vector2 = Vector2()
 
-onready var enemyCount = 0
+onready var slashPivot = get_node("SlashPivot")
+onready var attackAnimPlayer : AnimationPlayer = get_node("AttackAnimationPlayer")
+
+onready var enemyCount : int = 0
+
+enum State {NORMAL, ATTACK}
+onready var currentState = State.NORMAL
 
 func _ready():
     pass
+
+func changeState(newState):
+    currentState = newState
 
 func takeDamage(amount):
     health -= amount
@@ -17,7 +27,13 @@ func takeDamage(amount):
         #TODO death
         print("Player is dead!")
 
+func updateSlashPivot():
+    if not currentState == State.ATTACK:
+        var pivotAngle : float = slashPivot.global_position.angle_to_point(get_global_mouse_position())
+        slashPivot.set_global_rotation(pivotAngle - deg2rad(90))
+
 func _process(delta):
+    updateSlashPivot()
     pass
 
 func _physics_process(delta):
@@ -25,19 +41,32 @@ func _physics_process(delta):
     walkVel.y = 0
     
     if(Input.is_action_pressed("MOVE_LEFT")):
-        walkVel.x = -walkSpeed
+        walkVel.x += -walkSpeed
     if(Input.is_action_pressed("MOVE_RIGHT")):
-        walkVel.x = walkSpeed
+        walkVel.x += walkSpeed
     if(Input.is_action_pressed("MOVE_UP")):
-        walkVel.y = -walkSpeed
+        walkVel.y += -walkSpeed
     if(Input.is_action_pressed("MOVE_DOWN")):
-        walkVel.y = walkSpeed
-    
-    self.move_and_slide(walkVel)
+        walkVel.y += walkSpeed
 
-    if Input.is_action_just_pressed("ATTACK"):
-        var clickPos = get_global_mouse_position()
-        print(clickPos)
+    if (currentState == State.NORMAL) and Input.is_action_just_pressed("ATTACK"):
+        walkVel.x = 0
+        walkVel.y = 0
+        attackAnimPlayer.play("slash_anim")
+        changeState(State.ATTACK)
+        
+        var clickPos : Vector2 = get_global_mouse_position()
+        var moveVector : Vector2 = (clickPos - global_position).normalized() * attackDashSpeed
+        self.set_global_position(self.global_position + moveVector)
+    
+    if currentState == State.ATTACK:
+        for body in slashPivot.get_node("SlashArea").get_overlapping_bodies():
+            if body.is_in_group("Enemies"):
+                print("Enemy hit" + str(body))
+                body.queue_free()
+    
+    if currentState == State.NORMAL:
+        self.move_and_slide(walkVel)
 
 func _on_Area2D_body_entered(body):
     if body.is_in_group("Enemies"):
@@ -54,3 +83,8 @@ func _on_Area2D_body_exited(body):
 
 func _on_DamageTimer_timeout():
     self.takeDamage(2) #TODO damage amount specific to enemy?
+
+
+func _on_AttackAnimationPlayer_animation_finished(anim_name):
+    if anim_name == "slash_anim":
+        changeState(State.NORMAL)
