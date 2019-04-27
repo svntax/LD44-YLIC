@@ -6,6 +6,7 @@ onready var upgradesMenu = get_node("UILayer").get_node("UpgradesMenu")
 onready var enemyCount = get_tree().get_nodes_in_group("Enemies").size()
 
 var basicEnemy = load("res://Scenes/enemy_basic.tscn")
+var bullEnemy = load("res://Scenes/bull.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -15,7 +16,7 @@ func _ready():
 func spawnNewLayout():
     for i in range(3):
         enemyCount += 1
-        var enemy = basicEnemy.instance()
+        var enemy = bullEnemy.instance()
         self.add_child(enemy)
         enemy.set_global_position(Vector2(randi() % 320, randi() % 50))
 
