@@ -18,6 +18,12 @@ signal healthChanged(newHealth)
 func _ready():
     pass
 
+func updateStats():
+    health = Globals.CURRENT_HEALTH
+    walkSpeed = Globals.CURRENT_SPEED
+    global_position = Vector2(240, 180)
+    emit_signal("healthChanged", health)
+
 func changeState(newState):
     currentState = newState
 
@@ -62,8 +68,9 @@ func _physics_process(delta):
     if currentState == State.ATTACK:
         for body in slashPivot.get_node("SlashArea").get_overlapping_bodies():
             if body.is_in_group("Enemies"):
-                print("Enemy hit" + str(body))
+                #TODO do damage instead and emit signal from enemy
                 body.queue_free()
+                get_parent().enemyDestroyed()
     
     if currentState == State.NORMAL:
         self.move_and_slide(walkVel)
