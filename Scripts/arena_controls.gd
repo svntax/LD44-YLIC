@@ -18,7 +18,7 @@ func spawnNewLayout():
         enemyCount += 1
         var enemy = bullEnemy.instance()
         self.add_child(enemy)
-        enemy.set_global_position(Vector2(randi() % 320, randi() % 50))
+        enemy.set_global_position(Vector2(randi() % 320, randi() % 50 + 100))
 
 func enemyDestroyed():
     enemyCount -= 1
