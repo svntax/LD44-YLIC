@@ -10,6 +10,16 @@ var enemy_projectile = load("res://Scenes/enemy_projectile.tscn")
 
 onready var shotTimer = 5;
 
+onready var arena = get_tree().get_nodes_in_group("Arenas")[0]
+onready var STARTING_HEALTH = 5;
+onready var health = STARTING_HEALTH;
+
+func takeDamage(damage):
+    health -= damage;
+    if health <= 0:
+        arena.enemyDestroyed();
+        queue_free();
+
 func _ready():
     pass
 

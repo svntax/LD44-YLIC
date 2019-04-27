@@ -6,6 +6,7 @@ onready var moveSpeed = 64
 onready var chargeSpeed = 512;
 onready var player = get_tree().get_nodes_in_group("Players")[0]
 
+
 onready var charging = false;
 onready var charge_moving = false;
 onready var charge_rumble = 0;
@@ -24,12 +25,24 @@ onready var random_move_duration = 0;
 onready var random_move_direction;
 onready var true_position;
 
+onready var arena = get_tree().get_nodes_in_group("Arenas")[0]
+onready var STARTING_HEALTH = 15;
+onready var health = STARTING_HEALTH;
+
+func takeDamage(damage):
+    health -= damage;
+    if health <= 0:
+        arena.enemyDestroyed();
+        queue_free();
+
 func _ready():
     randomize();
     pass
 
 func _process(delta):
     pass
+    
+
 
 func _physics_process(delta):
     var playerPos = player.global_position

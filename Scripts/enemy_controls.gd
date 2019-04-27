@@ -5,6 +5,16 @@ onready var AGGRO_RANGE = 128
 onready var moveSpeed = 32
 onready var player = get_tree().get_nodes_in_group("Players")[0]
 
+onready var arena = get_tree().get_nodes_in_group("Arenas")[0]
+onready var STARTING_HEALTH = 10;
+onready var health = STARTING_HEALTH;
+
+func takeDamage(damage):
+    health -= damage;
+    if health <= 0:
+        arena.enemyDestroyed();
+        queue_free();
+
 func _ready():
     pass
 
