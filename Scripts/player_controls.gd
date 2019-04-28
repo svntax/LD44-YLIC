@@ -8,7 +8,8 @@ onready var walkVel : Vector2 = Vector2()
 onready var slashPivot = get_node("SlashPivot")
 onready var attackAnimPlayer : AnimationPlayer = get_node("AttackAnimationPlayer")
 
-onready var PROJECTILE_SPEED = 200;
+onready var PROJECTILE_SPEED_SLOW = 150;
+onready var PROJECTILE_SPEED_FAST = 300;
 
 onready var RANGED_ATTACK_COOLDOWN_TIME = 3.5;
 onready var rangedAttackCooldown = 0;
@@ -113,20 +114,42 @@ func _physics_process(delta):
         var moveVector : Vector2 = (clickPos - global_position).normalized() * attackDashSpeed
         self.set_global_position(self.global_position + moveVector)
     
-    elif (currentState == State.NORMAL) and Input.is_action_just_pressed("RANGED_ATTACK") and rangedAttackCooldown <= 0:
-        walkVel.x = 0
-        walkVel.y = 0
+    elif (currentState == State.NORMAL) and Input.is_action_just_pressed("RANGED_ATTACK"):
+        if rangedAttackCooldown <= 0 and Globals.RANGED_ATTACK_LEVEL >= 1:
+            walkVel.x = 0
+            walkVel.y = 0
 
-        var clickPos : Vector2 = get_global_mouse_position()
-        var projectileMotion : Vector2 = (clickPos - global_position).normalized()
+            var clickPos : Vector2 = get_global_mouse_position()
+            var projectileMotion : Vector2 = (clickPos - global_position).normalized()
+            
+            var effective_projectile_speed;
+            if Globals.RANGED_ATTACK_LEVEL >= 2:
+                effective_projectile_speed = PROJECTILE_SPEED_FAST;
+            else:
+                effective_projectile_speed = PROJECTILE_SPEED_SLOW;
+                
+            var projectile_test = player_projectile.instance();
+            get_parent().add_child(projectile_test);
+            projectile_test.global_position = global_position;
+            projectile_test.direction = projectileMotion;
+            projectile_test.speed = effective_projectile_speed;
+            projectile_test.damage = 5;
+            rangedAttackCooldown = RANGED_ATTACK_COOLDOWN_TIME;
         
-        var projectile_test = player_projectile.instance();
-        get_parent().add_child(projectile_test);
-        projectile_test.global_position = global_position;
-        projectile_test.direction = projectileMotion;
-        projectile_test.speed = PROJECTILE_SPEED;
-        projectile_test.damage = 5;
-        rangedAttackCooldown = RANGED_ATTACK_COOLDOWN_TIME;
+            if Globals.RANGED_ATTACK_LEVEL == 3:
+                var perp_vector = Vector2(projectileMotion.y, -projectileMotion.x);
+                var p1 = player_projectile.instance();
+                var p2 = player_projectile.instance();
+                get_parent().add_child(p1);
+                get_parent().add_child(p2);
+                p1.global_position = global_position;
+                p2.global_position = global_position;
+                p1.speed = effective_projectile_speed;
+                p2.speed = effective_projectile_speed;
+                p1.damage = 5;
+                p2.damage = 5;
+                p1.direction = (projectileMotion + perp_vector/8).normalized();
+                p2.direction = (projectileMotion - perp_vector/8).normalized();        
         
     
     if currentState == State.ATTACK:
