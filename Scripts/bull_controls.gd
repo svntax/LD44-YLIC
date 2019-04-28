@@ -29,6 +29,9 @@ onready var arena = get_tree().get_nodes_in_group("Arenas")[0]
 onready var STARTING_HEALTH = 15;
 onready var health = STARTING_HEALTH;
 
+func faceThePlayer():
+    get_node("Sprite").set_flip_h(player.global_position.x > self.global_position.x)
+
 func takeDamage(damage):
     health -= damage;
     if health <= 0:
@@ -41,8 +44,6 @@ func _ready():
 
 func _process(delta):
     pass
-    
-
 
 func _physics_process(delta):
     var playerPos = player.global_position
@@ -60,6 +61,8 @@ func _physics_process(delta):
     #if charge_ready == false:
     #    print("Charge cooldown", charge_cooldown);
     if dist.length() < AGGRO_RANGE and charge_ready and random_moving == false:
+        if not charge_moving:
+            faceThePlayer()
         if charging == false:
             charge_rumble = 3;
             true_position = position;
@@ -93,6 +96,7 @@ func _physics_process(delta):
             charge_moving = true;
             charge_duration = 0.25;
         if charging and charge_moving:
+            get_node("Sprite").set_flip_h(target_direction.x > 0)
             self.move_and_slide(target_direction.normalized() * chargeSpeed)
             
     else:
@@ -100,7 +104,7 @@ func _physics_process(delta):
         if random_moving == false and random_move_cooldown <= 0:
             random_move_duration = 1;
             random_moving = true;
-            random_move_direction = Vector2(randf(), randf());
+            random_move_direction = Vector2(rand_range(-1, 1), rand_range(-1, 1));
         if random_moving:
             
             random_move_duration -= delta;
@@ -108,6 +112,7 @@ func _physics_process(delta):
                 random_moving = false;
                 random_move_cooldown = 3;
             else:
+                get_node("Sprite").set_flip_h(random_move_direction.x > 0)
                 self.move_and_slide(random_move_direction.normalized() * moveSpeed)
         
 

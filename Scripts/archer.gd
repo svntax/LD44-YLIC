@@ -14,6 +14,9 @@ onready var arena = get_tree().get_nodes_in_group("Arenas")[0]
 onready var STARTING_HEALTH = 5;
 onready var health = STARTING_HEALTH;
 
+func faceThePlayer():
+    get_node("Sprite").set_flip_h(player.global_position.x > self.global_position.x)
+
 func takeDamage(damage):
     health -= damage;
     if health <= 0:
@@ -24,7 +27,7 @@ func _ready():
     pass
 
 func _process(delta):
-    pass
+    faceThePlayer()
 
 func _physics_process(delta):
     var playerPos = player.global_position
