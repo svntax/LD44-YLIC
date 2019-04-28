@@ -59,6 +59,8 @@ func _physics_process(delta):
     if shotTimer <= 0:
         var projectile_test = enemy_projectile.instance();
         get_parent().add_child(projectile_test);
+        projectile_test.get_node("AnimationPlayer").play("magic_projectile_anim")
+        projectile_test.get_node("Sprite").hide()
         SoundHandler.casterShoot.play()
         projectile_test.global_position = global_position;
         projectile_test.direction = dist.normalized();
