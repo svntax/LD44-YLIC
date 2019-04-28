@@ -13,34 +13,45 @@ var archerEnemy = load("res://Scenes/archer.tscn")
 var casterEnemy = load("res://Scenes/caster.tscn");
 
 onready var layoutRoot = get_node("LayoutRoot")
+onready var nextLayoutChoice = -1
 
-var arenaLayouts = {
-layoutBasic = load("res://Scenes/LayoutBasic")
-}
+var layoutBasic = load("res://Scenes/layout_basic.tscn")
+var layout02 = load("res://Scenes/layout_02.tscn")
+
+var arenaLayouts = [
+layoutBasic,
+layout02
+]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
     pass # Replace with function body.
 
-#TODO spawn new layout and wave of enemies
 func spawnNewLayout():
-    #TODO delete and spawn new layout
-    for i in range(3):
-        enemyCount += 1
-        var enemy
-        if i%3 == 0:
-            enemy = archerEnemy.instance()
-        elif i%2 == 0:
-            enemy = bullEnemy.instance()
-        else:
-            enemy = casterEnemy.instance()
-        self.add_child(enemy)
-        enemy.set_global_position(Vector2(randi() % 320, randi() % 50 + 100))
+    for child in layoutRoot.get_children():
+        child.queue_free()
+    
+    var newLayout = arenaLayouts[nextLayoutChoice].instance()
+    layoutRoot.add_child(newLayout)
+    enemyCount = get_tree().get_nodes_in_group("Enemies").size()
+    
+#    for i in range(3):
+#        enemyCount += 1
+#        var enemy
+#        if i%3 == 0:
+#            enemy = archerEnemy.instance()
+#        elif i%2 == 0:
+#            enemy = bullEnemy.instance()
+#        else:
+#            enemy = casterEnemy.instance()
+#        self.add_child(enemy)
+#        enemy.set_global_position(Vector2(randi() % 320, randi() % 50 + 100))
 
 func enemyDestroyed():
     enemyCount -= 1
     if enemyCount <= 0: #End of wave
         Globals.CURRENT_HEALTH = player.health
+        nextLayoutChoice = randi() % arenaLayouts.size()
         upgradesMenu.syncValues()
         upgradesMenu.isActive = true
         transitions.play("upgrades_menu_transition")

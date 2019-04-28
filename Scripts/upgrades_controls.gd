@@ -19,7 +19,7 @@ func updateLabels():
     healthLabel.set_text("HP Remaining: " + str(health))
     
     var speedLabel : Label = speedUpgrade.get_node("SpeedLabel")
-    speedLabel.set_text("Speed (-%d):\n%d" % [SPEED_COST, speed])
+    speedLabel.set_text("Speed (-%d HP):\n%d" % [SPEED_COST, speed])
 
 func syncValues():
     speed = Globals.CURRENT_SPEED

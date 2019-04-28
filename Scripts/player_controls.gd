@@ -21,7 +21,7 @@ func _ready():
 func updateStats():
     health = Globals.CURRENT_HEALTH
     walkSpeed = Globals.CURRENT_SPEED
-    global_position = Vector2(240, 180)
+    global_position = Vector2(200, 180)
     emit_signal("healthChanged", health)
 
 func changeState(newState):
