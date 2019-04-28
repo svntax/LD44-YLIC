@@ -26,3 +26,7 @@ func _physics_process(delta):
         var dist = playerPos - myPos;
         direction = (direction + dist * delta / 32).normalized();
     move_and_slide(direction * speed);
+
+func _on_Area2D_body_entered(body):
+    if body is TileMap:
+        queue_free()
