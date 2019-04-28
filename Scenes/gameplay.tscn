@@ -1,11 +1,21 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Scripts/arena_controls.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/layout_basic.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/game_ui.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Sprites/dark_stone_wall_tile.png" type="Texture" id=5]
-[ext_resource path="res://Scenes/upgrades_ui.tscn" type="PackedScene" id=6]
+[ext_resource path="res://CompassPro.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://Sprites/dark_stone_wall_tile.png" type="Texture" id=6]
+[ext_resource path="res://Scenes/upgrades_ui.tscn" type="PackedScene" id=7]
+
+[sub_resource type="DynamicFont" id=5]
+size = 32
+outline_size = 2
+outline_color = Color( 0.67451, 0.196078, 0.196078, 1 )
+font_data = ExtResource( 5 )
+
+[sub_resource type="Theme" id=6]
+default_font = SubResource( 5 )
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.85098, 0.627451, 0.4, 1 )
@@ -104,23 +114,24 @@ margin_bottom = -576.667
 margin_top = 25.0
 margin_right = 400.0
 margin_bottom = 65.0
+theme = SubResource( 6 )
 
 [node name="FinishedLabel" type="Label" parent="UILayer/HeadersContainer"]
 visible = false
-margin_left = 171.0
-margin_top = 13.0
-margin_right = 229.0
-margin_bottom = 27.0
+margin_left = 143.0
+margin_top = 5.0
+margin_right = 257.0
+margin_bottom = 35.0
 text = "Finished!"
 align = 1
 
 [node name="DeathLabel" type="Label" parent="UILayer/HeadersContainer"]
 visible = false
-margin_left = 170.0
-margin_top = 13.0
-margin_right = 229.0
-margin_bottom = 27.0
-text = "You died!"
+margin_left = 141.0
+margin_top = 5.0
+margin_right = 259.0
+margin_bottom = 35.0
+text = "You Died!"
 align = 1
 
 [node name="UpgradesRoot" type="Control" parent="UILayer"]
@@ -131,7 +142,7 @@ margin_bottom = 300.0
 [node name="TextureRect" type="TextureRect" parent="UILayer/UpgradesRoot"]
 margin_right = 400.0
 margin_bottom = 300.0
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 stretch_mode = 2
 
 [node name="Panel" type="Panel" parent="UILayer/UpgradesRoot"]
@@ -140,11 +151,11 @@ margin_right = 400.0
 margin_bottom = 300.0
 custom_styles/panel = SubResource( 1 )
 
-[node name="UpgradesMenu" parent="UILayer/UpgradesRoot" instance=ExtResource( 6 )]
+[node name="UpgradesMenu" parent="UILayer/UpgradesRoot" instance=ExtResource( 7 )]
 margin_left = 103.635
-margin_top = 74.0249
+margin_top = 74.4536
 margin_right = 63.635
-margin_bottom = 34.0249
+margin_bottom = 34.4536
 
 [node name="TransitionAnimationPlayer" type="AnimationPlayer" parent="."]
 pause_mode = 2

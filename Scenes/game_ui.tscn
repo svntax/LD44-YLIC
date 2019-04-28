@@ -1,7 +1,22 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Scripts/game_ui.gd" type="Script" id=1]
-[ext_resource path="res://Sprites/heart_icon.png" type="Texture" id=2]
+[ext_resource path="res://CompassPro.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Scripts/game_ui.gd" type="Script" id=2]
+[ext_resource path="res://Sprites/heart_icon.png" type="Texture" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 1 )
+
+[sub_resource type="Theme" id=2]
+default_font = SubResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.356863, 0.431373, 0.882353, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
 
 [node name="GameUI" type="Control"]
 anchor_right = 1.0
@@ -10,23 +25,31 @@ margin_right = -712.0
 margin_bottom = -683.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
-script = ExtResource( 1 )
+theme = SubResource( 2 )
+script = ExtResource( 2 )
+
+[node name="Panel" type="Panel" parent="."]
+margin_right = 76.0
+margin_bottom = 25.0
+custom_styles/panel = SubResource( 3 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
-margin_right = 87.0
-margin_bottom = 48.0
+margin_left = 4.0
+margin_top = 2.0
+margin_right = 67.0
+margin_bottom = 51.0
 size_flags_horizontal = 3
 
 [node name="HealthIcon" type="TextureRect" parent="HBoxContainer"]
 margin_right = 20.0
-margin_bottom = 48.0
-texture = ExtResource( 2 )
+margin_bottom = 51.0
+texture = ExtResource( 3 )
 stretch_mode = 3
 
 [node name="HealthLabel" type="Label" parent="HBoxContainer"]
 margin_left = 24.0
-margin_right = 70.0
-margin_bottom = 48.0
+margin_right = 67.0
+margin_bottom = 51.0
 size_flags_vertical = 0
 text = "HP 100
 

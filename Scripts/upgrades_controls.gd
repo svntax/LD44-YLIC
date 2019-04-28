@@ -2,7 +2,7 @@ extends Control
 
 var SPEED_COST = 5
 
-onready var speedUpgrade = get_node("CenterContainer").get_node("VBoxContainer").get_node("SpeedUpgrade")
+onready var speedUpgrade = get_node("CenterContainer/VBoxContainer/SpeedUpgrade")
 
 onready var speed = Globals.CURRENT_SPEED
 onready var health = Globals.CURRENT_HEALTH
@@ -15,11 +15,14 @@ func _ready():
     pass # Replace with function body.
 
 func updateLabels():
-    var healthLabel = speedUpgrade.get_parent().get_node("HealthLabel")
+    var healthLabel : Label = speedUpgrade.get_parent().get_node("HealthLabel")
     healthLabel.set_text("HP Remaining: " + str(health))
     
     var speedLabel : Label = speedUpgrade.get_node("SpeedLabel")
     speedLabel.set_text("Speed (-%d HP):\n%d" % [SPEED_COST, speed])
+    
+    var waveLabel : Label = get_node("CenterContainer/VBoxContainer/WaveLabel")
+    waveLabel.set_text("Wave %d Complete!" % Globals.currentWave)
 
 func syncValues():
     speed = Globals.CURRENT_SPEED
