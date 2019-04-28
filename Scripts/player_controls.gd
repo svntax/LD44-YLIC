@@ -84,6 +84,7 @@ func _physics_process(delta):
     if(Input.is_action_pressed("DASH") and dash_cooldown <= 0):
         dash_ttl = DASH_DURATION;
         dash_cooldown = DASH_COOLDOWN;
+        SoundHandler.playerDash.play()
         
     if dash_ttl > 0:
         dash_ttl -= delta;

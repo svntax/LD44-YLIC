@@ -17,7 +17,7 @@ font_data = ExtResource( 5 )
 [sub_resource type="Theme" id=2]
 default_font = SubResource( 1 )
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=3]
 tracks/0/type = "value"
 tracks/0/path = NodePath("UILayer/HeadersContainer/DeathLabel:visible")
 tracks/0/interp = 1
@@ -31,7 +31,7 @@ tracks/0/keys = {
 "values": [ true ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=4]
 length = 3.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("UILayer/UpgradesRoot:rect_position")
@@ -46,7 +46,7 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 400, 0 ) ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=5]
 length = 3.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("UILayer/UpgradesRoot:rect_position")
@@ -107,6 +107,7 @@ margin_bottom = 65.0
 theme = SubResource( 2 )
 
 [node name="FinishedLabel" type="Label" parent="UILayer/HeadersContainer"]
+visible = false
 margin_left = 143.0
 margin_top = 5.0
 margin_right = 257.0
@@ -144,9 +145,9 @@ margin_bottom = 0.0
 
 [node name="TransitionAnimationPlayer" type="AnimationPlayer" parent="."]
 pause_mode = 2
-anims/player_death_transition = SubResource( 4 )
-anims/upgrades_menu_confirmed_transition = SubResource( 5 )
-anims/upgrades_menu_transition = SubResource( 6 )
+anims/player_death_transition = SubResource( 3 )
+anims/upgrades_menu_confirmed_transition = SubResource( 4 )
+anims/upgrades_menu_transition = SubResource( 5 )
 
 [connection signal="healthChanged" from="Player" to="UILayer/GameUI" method="_on_Player_healthChanged"]
 [connection signal="confirmedUpgrades" from="UILayer/UpgradesRoot/UpgradesMenu" to="." method="_on_UpgradesMenu_confirmedUpgrades"]
