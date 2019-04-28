@@ -1,6 +1,6 @@
 extends Control
 
-onready var healthLabel = get_node("HBoxContainer").get_node("HealthLabel")
+onready var healthLabel = get_node("HBoxContainer/HealthLabel")
 onready var transitions = get_parent().get_parent().get_node("TransitionAnimationPlayer")
 
 func _ready():
