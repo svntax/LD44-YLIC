@@ -13,6 +13,19 @@ onready var PROJECTILE_SPEED = 200;
 onready var RANGED_ATTACK_COOLDOWN_TIME = 3.5;
 onready var rangedAttackCooldown = 0;
 
+onready var DASH_DURATION = 0.1;
+onready var dash_ttl = 0;
+onready var DASH_SPEEDUP_FACTOR = 8;
+
+onready var dash_slowdown_ttl = 0;
+onready var DASH_SLOWDOWN_FACTOR = 0.3;
+onready var DASH_SLOWDOWN_DURATION = 0.8;
+
+onready var DASH_COOLDOWN = 4;
+onready var dash_cooldown = 0;
+
+
+
 var player_projectile = load("res://Scenes/player_projectile.tscn")
 
 onready var enemyCount : int = 0
@@ -57,15 +70,34 @@ func _process(delta):
 func _physics_process(delta):
     walkVel.x = 0
     walkVel.y = 0
-    
     if(Input.is_action_pressed("MOVE_LEFT")):
-        walkVel.x += -walkSpeed
+        walkVel.x += -1
     if(Input.is_action_pressed("MOVE_RIGHT")):
-        walkVel.x += walkSpeed
+        walkVel.x += 1
     if(Input.is_action_pressed("MOVE_UP")):
-        walkVel.y += -walkSpeed
+        walkVel.y += -1
     if(Input.is_action_pressed("MOVE_DOWN")):
-        walkVel.y += walkSpeed
+        walkVel.y += 1
+        
+    var effective_movespeed = walkSpeed;
+    
+    if(Input.is_action_pressed("DASH") and dash_cooldown <= 0):
+        dash_ttl = DASH_DURATION;
+        dash_cooldown = DASH_COOLDOWN;
+        
+    if dash_ttl > 0:
+        dash_ttl -= delta;
+        effective_movespeed = walkSpeed * DASH_SPEEDUP_FACTOR;
+        if dash_ttl <= 0:
+            dash_slowdown_ttl = DASH_SLOWDOWN_DURATION;
+            
+    if dash_slowdown_ttl > 0:
+        dash_slowdown_ttl -= delta;
+        effective_movespeed = walkSpeed * DASH_SLOWDOWN_FACTOR;
+        
+    if dash_cooldown > 0:
+        dash_cooldown -= delta;
+        
 
     if rangedAttackCooldown > 0:
         rangedAttackCooldown -= delta;
@@ -103,7 +135,7 @@ func _physics_process(delta):
                 body.takeDamage(1)
     
     if currentState == State.NORMAL:
-        self.move_and_slide(walkVel)
+        self.move_and_slide(walkVel.normalized() * effective_movespeed)
 
 func _on_Area2D_body_entered(body):
     if body.is_in_group("Enemies"):

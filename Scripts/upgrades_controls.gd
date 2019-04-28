@@ -36,7 +36,7 @@ func _on_SpeedIncrease_pressed():
 
 func _on_SpeedDecrease_pressed():
     if isActive:
-        if speed > Globals.MIN_SPEED: #TODO make htis a variable scale
+        if speed > Globals.MIN_SPEED: #TODO make this a variable scale
             speed -= 5
             health += SPEED_COST
     

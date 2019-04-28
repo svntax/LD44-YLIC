@@ -1,10 +1,16 @@
 extends KinematicBody2D
 
-onready var AGGRO_RANGE = 128
+onready var AGGRO_RANGE = 80
 onready var PROJECTILE_SPEED = 100;
 
 onready var moveSpeed = 32
 onready var player = get_tree().get_nodes_in_group("Players")[0]
+
+onready var RANDOM_MOVE_COOLDOWN = 3;
+onready var random_move_cooldown = 0;
+onready var RANDOM_MOVE_DURATION = 1;
+onready var random_move_ttl = 0;
+onready var random_move_direction;
 
 var enemy_projectile = load("res://Scenes/enemy_projectile.tscn")
 
@@ -33,8 +39,22 @@ func _physics_process(delta):
     var playerPos = player.global_position
     var myPos = self.global_position
     var dist = playerPos - myPos
+    
+    if random_move_cooldown > 0:
+        random_move_cooldown -= delta;
+    if random_move_ttl > 0:
+        random_move_ttl -= delta;
+        if random_move_ttl <= 0:
+            random_move_cooldown = RANDOM_MOVE_COOLDOWN;
+    
     if dist.length() < AGGRO_RANGE:
-        self.move_and_slide(dist.normalized() * moveSpeed * -1)
+        self.move_and_slide(dist.normalized() * moveSpeed * -1);
+    elif random_move_cooldown <= 0:
+        if random_move_ttl <= 0:
+            random_move_ttl = RANDOM_MOVE_DURATION;
+            random_move_direction = Vector2(rand_range(-1, 1), rand_range(-1, 1));
+        self.move_and_slide(random_move_direction.normalized() * moveSpeed);
+    
     shotTimer -= delta;
     if shotTimer <= 0:
         var projectile_test = enemy_projectile.instance();
@@ -44,5 +64,5 @@ func _physics_process(delta):
         projectile_test.speed = PROJECTILE_SPEED;
         projectile_test.target_player = true;
         projectile_test.limited_lifespan = true;
-        projectile_test.lifespan = 6;
+        projectile_test.lifespan = 4.5;
         shotTimer = 5;

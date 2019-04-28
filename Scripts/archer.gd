@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-onready var AGGRO_RANGE = 128
+onready var AGGRO_RANGE = 80
 onready var PROJECTILE_SPEED = 400;
 
 onready var moveSpeed = 32
@@ -13,6 +13,14 @@ onready var shotTimer = 5;
 onready var arena = get_tree().get_nodes_in_group("Arenas")[0]
 onready var STARTING_HEALTH = 5;
 onready var health = STARTING_HEALTH;
+
+onready var contact_damage = 3;
+
+onready var RANDOM_MOVE_COOLDOWN = 3;
+onready var random_move_cooldown = 0;
+onready var RANDOM_MOVE_DURATION = 1;
+onready var random_move_ttl = 0;
+onready var random_move_direction;
 
 func faceThePlayer():
     get_node("Sprite").set_flip_h(player.global_position.x > self.global_position.x)
@@ -33,8 +41,24 @@ func _physics_process(delta):
     var playerPos = player.global_position
     var myPos = self.global_position
     var dist = playerPos - myPos
+    
+    if random_move_cooldown > 0:
+        random_move_cooldown -= delta;
+    if random_move_ttl > 0:
+        random_move_ttl -= delta;
+        if random_move_ttl <= 0:
+            random_move_cooldown = RANDOM_MOVE_COOLDOWN;
+    
     if dist.length() < AGGRO_RANGE:
-        self.move_and_slide(dist.normalized() * moveSpeed * -1)
+        self.move_and_slide(dist.normalized() * moveSpeed * -1);
+    elif random_move_cooldown <= 0:
+        if random_move_ttl <= 0:
+            random_move_ttl = RANDOM_MOVE_DURATION;
+            random_move_direction = Vector2(rand_range(-1, 1), rand_range(-1, 1));
+        self.move_and_slide(random_move_direction.normalized() * moveSpeed);
+        
+        
+        
     shotTimer -= delta;
     if shotTimer <= 0:
         var projectile_test = enemy_projectile.instance();

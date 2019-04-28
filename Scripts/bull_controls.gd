@@ -1,10 +1,15 @@
 extends KinematicBody2D
 
-onready var AGGRO_RANGE = 128
+onready var AGGRO_RANGE = 100
 
 onready var moveSpeed = 64
 onready var chargeSpeed = 512;
 onready var player = get_tree().get_nodes_in_group("Players")[0]
+
+
+onready var DEFAULT_DAMAGE = 8;
+onready var CHARGE_DAMAGE = 15;
+onready var contact_damage = DEFAULT_DAMAGE;
 
 
 onready var charging = false;
@@ -64,7 +69,7 @@ func _physics_process(delta):
         if not charge_moving:
             faceThePlayer()
         if charging == false:
-            charge_rumble = 3;
+            charge_rumble = 2;
             true_position = position;
         charging = true;
        # print("beginning charge");
@@ -73,6 +78,7 @@ func _physics_process(delta):
         charge_duration -= delta;
         charge_rumble -= delta;
         if charge_moving and charge_duration <= 0:
+            contact_damage = DEFAULT_DAMAGE;
             charging = false;
             charge_moving = false;
             charge_ready = false;
@@ -94,6 +100,7 @@ func _physics_process(delta):
             #print("Initiating charge movement");
             position = true_position;
             charge_moving = true;
+            contact_damage = CHARGE_DAMAGE;
             charge_duration = 0.25;
         if charging and charge_moving:
             get_node("Sprite").set_flip_h(target_direction.x > 0)
@@ -104,13 +111,16 @@ func _physics_process(delta):
         if random_moving == false and random_move_cooldown <= 0:
             random_move_duration = 1;
             random_moving = true;
-            random_move_direction = Vector2(rand_range(-1, 1), rand_range(-1, 1));
+            if dist.length() <= AGGRO_RANGE and randf() < 0.65:
+                random_move_direction = dist;
+            else:
+                random_move_direction = Vector2(rand_range(-1, 1), rand_range(-1, 1));
         if random_moving:
             
             random_move_duration -= delta;
             if random_move_duration <= 0:
                 random_moving = false;
-                random_move_cooldown = 3;
+                random_move_cooldown = 2;
             else:
                 get_node("Sprite").set_flip_h(random_move_direction.x > 0)
                 self.move_and_slide(random_move_direction.normalized() * moveSpeed)
