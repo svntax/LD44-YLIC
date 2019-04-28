@@ -23,6 +23,8 @@ layoutBasic,
 layout02
 ]
 
+signal playerDeathAnimationFinished()
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
     pass # Replace with function body.
@@ -67,3 +69,5 @@ func _on_TransitionAnimationPlayer_animation_finished(anim_name):
         Globals.currentWave += 1
     if anim_name == "upgrades_menu_transition":
         upgradesMenu.isActive = true
+    if anim_name == "player_death_transition":
+        emit_signal("playerDeathAnimationFinished")

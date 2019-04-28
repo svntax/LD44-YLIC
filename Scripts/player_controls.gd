@@ -69,6 +69,9 @@ func _process(delta):
     pass
 
 func _physics_process(delta):
+    if health <= 0:
+        return
+    
     walkVel.x = 0
     walkVel.y = 0
     if(Input.is_action_pressed("MOVE_LEFT")):

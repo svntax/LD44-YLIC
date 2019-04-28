@@ -103,7 +103,7 @@ margin_bottom = 117.0
 size_flags_vertical = 0
 
 [node name="SpeedLabel" type="Label" parent="VBoxContainer/SpeedUpgrade"]
-margin_right = 91.0
+margin_right = 109.0
 margin_bottom = 51.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
@@ -114,8 +114,8 @@ text = "Speed (-5 HP):
 align = 1
 
 [node name="SpeedIncrease" type="Button" parent="VBoxContainer/SpeedUpgrade"]
-margin_left = 95.0
-margin_right = 110.0
+margin_left = 113.0
+margin_right = 128.0
 margin_bottom = 19.0
 rect_min_size = Vector2( 15, 0 )
 focus_mode = 0
@@ -127,8 +127,8 @@ custom_styles/normal = ExtResource( 3 )
 text = "+"
 
 [node name="SpeedDecrease" type="Button" parent="VBoxContainer/SpeedUpgrade"]
-margin_left = 114.0
-margin_right = 129.0
+margin_left = 132.0
+margin_right = 147.0
 margin_bottom = 19.0
 rect_min_size = Vector2( 15, 0 )
 size_flags_horizontal = 0
