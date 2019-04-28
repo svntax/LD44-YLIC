@@ -8,8 +8,8 @@ func _ready():
 
 func _on_Player_healthChanged(newHealth):
     healthLabel.set_text("HP " + str(newHealth))
-    #TODO player death
+    #TODO game over + go back to main menu
     if newHealth <= 0:
-        print("Player death")
+        SoundHandler.playerDeath.play()
         transitions.play("player_death_transition")
         #get_tree().paused = true

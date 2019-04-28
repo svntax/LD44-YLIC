@@ -1,7 +1,7 @@
 extends Node2D
 
 onready var player = get_tree().get_nodes_in_group("Players")[0]
-onready var upgradesMenu = get_node("UILayer/UpgradesRoot/UpgradesMenu")
+onready var upgradesMenu = get_node("UILayer/UpgradesRoot").find_node("UpgradesMenu")
 
 onready var transitions : AnimationPlayer = get_node("TransitionAnimationPlayer")
 

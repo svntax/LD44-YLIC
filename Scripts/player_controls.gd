@@ -115,7 +115,7 @@ func _physics_process(delta):
     elif (currentState == State.NORMAL) and Input.is_action_just_pressed("RANGED_ATTACK") and rangedAttackCooldown <= 0:
         walkVel.x = 0
         walkVel.y = 0
-        
+
         var clickPos : Vector2 = get_global_mouse_position()
         var projectileMotion : Vector2 = (clickPos - global_position).normalized()
         

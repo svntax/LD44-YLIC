@@ -31,69 +31,89 @@ anti_aliasing = false
 pause_mode = 2
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = -779.0
-margin_bottom = -582.0
+margin_right = -800.0
+margin_bottom = -600.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 theme = SubResource( 2 )
 script = ExtResource( 2 )
 
 [node name="Panel" type="Panel" parent="."]
-margin_right = 182.0
-margin_bottom = 167.0
+margin_left = -120.0
+margin_top = -98.0
+margin_right = 120.0
+margin_bottom = 94.0
 custom_styles/panel = SubResource( 3 )
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
-margin_right = 180.0
-margin_bottom = 168.0
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -120.0
+margin_top = -112.0
+margin_right = 120.0
+margin_bottom = 88.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
-margin_left = 22.0
-margin_top = 9.0
-margin_right = 157.0
-margin_bottom = 158.0
+[node name="VBoxContainer" type="Control" parent="."]
+margin_left = -92.0
+margin_top = -92.0
+margin_right = 91.0
+margin_bottom = 92.0
+size_flags_horizontal = 0
 size_flags_vertical = 0
 
-[node name="WaveLabel" type="Label" parent="CenterContainer/VBoxContainer"]
-margin_right = 135.0
-margin_bottom = 15.0
+[node name="WaveLabel" type="Label" parent="VBoxContainer"]
+margin_left = 39.0
+margin_top = 4.0
+margin_right = 144.0
+margin_bottom = 19.0
+size_flags_vertical = 1
 custom_colors/font_color = Color( 0.67451, 0.196078, 0.196078, 1 )
 text = "Wave 1 Complete!"
 align = 1
 
-[node name="HealthLabel" type="Label" parent="CenterContainer/VBoxContainer"]
-margin_top = 19.0
-margin_right = 135.0
-margin_bottom = 34.0
+[node name="HealthLabel" type="Label" parent="VBoxContainer"]
+margin_left = 35.0
+margin_top = 24.0
+margin_right = 148.0
+margin_bottom = 39.0
+size_flags_vertical = 5
 custom_colors/font_color = Color( 0.4, 0.223529, 0.192157, 1 )
 text = "HP Remaining: 100"
 align = 1
 
-[node name="Header2" type="Label" parent="CenterContainer/VBoxContainer"]
-margin_top = 38.0
-margin_right = 135.0
-margin_bottom = 71.0
+[node name="Header2" type="Label" parent="VBoxContainer"]
+margin_left = 24.0
+margin_top = 45.0
+margin_right = 159.0
+margin_bottom = 78.0
+size_flags_vertical = 1
 custom_colors/font_color = Color( 0.4, 0.223529, 0.192157, 1 )
 text = "Select your upgrades!
 "
 align = 1
 
-[node name="SpeedUpgrade" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
-margin_top = 75.0
-margin_right = 135.0
-margin_bottom = 126.0
+[node name="SpeedUpgrade" type="HBoxContainer" parent="VBoxContainer"]
+margin_left = 27.0
+margin_top = 66.0
+margin_right = 156.0
+margin_bottom = 117.0
 size_flags_vertical = 0
 
-[node name="SpeedLabel" type="Label" parent="CenterContainer/VBoxContainer/SpeedUpgrade"]
+[node name="SpeedLabel" type="Label" parent="VBoxContainer/SpeedUpgrade"]
 margin_right = 91.0
 margin_bottom = 51.0
+size_flags_horizontal = 3
+size_flags_vertical = 0
 custom_colors/font_color = Color( 0.4, 0.223529, 0.192157, 1 )
 text = "Speed (-5 HP):
 10
 "
 align = 1
 
-[node name="SpeedIncrease" type="Button" parent="CenterContainer/VBoxContainer/SpeedUpgrade"]
+[node name="SpeedIncrease" type="Button" parent="VBoxContainer/SpeedUpgrade"]
 margin_left = 95.0
 margin_right = 110.0
 margin_bottom = 19.0
@@ -106,7 +126,7 @@ custom_styles/pressed = ExtResource( 4 )
 custom_styles/normal = ExtResource( 3 )
 text = "+"
 
-[node name="SpeedDecrease" type="Button" parent="CenterContainer/VBoxContainer/SpeedUpgrade"]
+[node name="SpeedDecrease" type="Button" parent="VBoxContainer/SpeedUpgrade"]
 margin_left = 114.0
 margin_right = 129.0
 margin_bottom = 19.0
@@ -118,15 +138,64 @@ custom_styles/pressed = ExtResource( 4 )
 custom_styles/normal = ExtResource( 3 )
 text = "-"
 
-[node name="ConfirmButton" type="Button" parent="CenterContainer/VBoxContainer"]
-margin_top = 130.0
-margin_right = 135.0
-margin_bottom = 149.0
+[node name="RangeAttackUpgrade" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 106.0
+margin_right = 183.0
+margin_bottom = 157.0
+size_flags_vertical = 0
+
+[node name="RangedAttackLabel" type="Label" parent="VBoxContainer/RangeAttackUpgrade"]
+margin_right = 145.0
+margin_bottom = 51.0
+size_flags_horizontal = 3
+size_flags_vertical = 0
+custom_colors/font_color = Color( 0.4, 0.223529, 0.192157, 1 )
+text = "Ranged Attack (-8 HP):
+Level 1
+"
+align = 1
+
+[node name="RangedAttackIncrease" type="Button" parent="VBoxContainer/RangeAttackUpgrade"]
+margin_left = 149.0
+margin_right = 164.0
+margin_bottom = 19.0
+rect_min_size = Vector2( 15, 0 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+custom_styles/hover = ExtResource( 3 )
+custom_styles/pressed = ExtResource( 4 )
+custom_styles/normal = ExtResource( 3 )
+text = "+"
+
+[node name="RangedAttackDecrease" type="Button" parent="VBoxContainer/RangeAttackUpgrade"]
+margin_left = 168.0
+margin_right = 183.0
+margin_bottom = 19.0
+rect_min_size = Vector2( 15, 0 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+custom_styles/hover = ExtResource( 3 )
+custom_styles/pressed = ExtResource( 4 )
+custom_styles/normal = ExtResource( 3 )
+text = "-"
+
+[node name="ConfirmButton" type="Button" parent="VBoxContainer"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -50.0
+margin_top = -29.0
+margin_right = 50.0
+margin_bottom = -10.0
+rect_min_size = Vector2( 100, 0 )
 custom_styles/hover = ExtResource( 5 )
 custom_styles/pressed = ExtResource( 6 )
 custom_styles/normal = ExtResource( 5 )
 text = "Confirm"
 
-[connection signal="pressed" from="CenterContainer/VBoxContainer/SpeedUpgrade/SpeedIncrease" to="." method="_on_SpeedIncrease_pressed"]
-[connection signal="pressed" from="CenterContainer/VBoxContainer/SpeedUpgrade/SpeedDecrease" to="." method="_on_SpeedDecrease_pressed"]
-[connection signal="pressed" from="CenterContainer/VBoxContainer/ConfirmButton" to="." method="_on_ConfirmButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/SpeedUpgrade/SpeedIncrease" to="." method="_on_SpeedIncrease_pressed"]
+[connection signal="pressed" from="VBoxContainer/SpeedUpgrade/SpeedDecrease" to="." method="_on_SpeedDecrease_pressed"]
+[connection signal="pressed" from="VBoxContainer/RangeAttackUpgrade/RangedAttackIncrease" to="." method="_on_RangedAttackIncrease_pressed"]
+[connection signal="pressed" from="VBoxContainer/RangeAttackUpgrade/RangedAttackDecrease" to="." method="_on_RangedAttackDecrease_pressed"]
+[connection signal="pressed" from="VBoxContainer/ConfirmButton" to="." method="_on_ConfirmButton_pressed"]
