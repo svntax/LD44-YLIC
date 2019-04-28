@@ -94,9 +94,8 @@ func _physics_process(delta):
     if currentState == State.ATTACK:
         for body in slashPivot.get_node("SlashArea").get_overlapping_bodies():
             if body.is_in_group("Enemies"):
-                #TODO do damage instead and emit signal from enemy
-                body.queue_free()
-                get_parent().enemyDestroyed()
+                #TODO registers multiple times, need melee damage cooldown for enemies
+                body.takeDamage(1)
     
     if currentState == State.NORMAL:
         self.move_and_slide(walkVel)

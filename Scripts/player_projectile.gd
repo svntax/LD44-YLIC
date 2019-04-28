@@ -22,6 +22,8 @@ func _physics_process(delta):
     move_and_slide(direction * speed);
     
 func _on_Area2D_body_entered(body):
+    if body is TileMap:
+        queue_free()
     if body.is_in_group("Enemies"):
         body.takeDamage(damage);
         queue_free();
