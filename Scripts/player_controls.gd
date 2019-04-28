@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
 onready var health : int = Globals.CURRENT_HEALTH
-onready var walkSpeed : float = Globals.CURRENT_SPEED
+onready var walkSpeed : float = Globals.getSpeed()
 onready var attackDashSpeed : float = 8
 onready var walkVel : Vector2 = Vector2()
 
@@ -43,7 +43,7 @@ func _ready():
 func updateStats():
     changeState(State.NORMAL)
     health = Globals.CURRENT_HEALTH
-    walkSpeed = Globals.CURRENT_SPEED
+    walkSpeed = Globals.getSpeed()
     rangedAttackCooldown = 0
     for projectile in get_tree().get_nodes_in_group("PlayerProjectiles"):
         projectile.queue_free()

@@ -21,9 +21,9 @@ func updateLabels():
             waveWord = "waves"
         highScore.set_text("High Score: %d %s" % [Globals.highScore, waveWord])
 
-    speedLabel.set_text("Speed: %d" % Globals.CURRENT_SPEED)
+    speedLabel.set_text("Speed: Level %d / %d" % [Globals.SPEED_LEVEL, Globals.MAX_SPEED_LEVEL])
     
-    rangedAttackLabel.set_text("Ranged Attack: Level %d" % Globals.RANGED_ATTACK_LEVEL)
+    rangedAttackLabel.set_text("Ranged Attack: Level %d / 3" % Globals.RANGED_ATTACK_LEVEL)
 
 func _ready():
     pass
