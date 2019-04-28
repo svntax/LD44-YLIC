@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/caster_shot.wav-b67b32e6b095a42a0d212f36c615626d.sample"
+
+[deps]
+
+source_file="res://Audio/caster_shot.wav"
+dest_files=[ "res://.import/caster_shot.wav-b67b32e6b095a42a0d212f36c615626d.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0
