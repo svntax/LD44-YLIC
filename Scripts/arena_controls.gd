@@ -53,7 +53,6 @@ func enemyDestroyed():
         Globals.CURRENT_HEALTH = player.health
         nextLayoutChoice = randi() % arenaLayouts.size()
         upgradesMenu.syncValues()
-        upgradesMenu.isActive = true
         transitions.play("upgrades_menu_transition")
         get_tree().paused = true
 
@@ -65,3 +64,5 @@ func _on_UpgradesMenu_confirmedUpgrades():
 func _on_TransitionAnimationPlayer_animation_finished(anim_name):
     if anim_name == "upgrades_menu_confirmed_transition":
         get_tree().paused = false
+    if anim_name == "upgrades_menu_transition":
+        upgradesMenu.isActive = true
