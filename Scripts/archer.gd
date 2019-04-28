@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
 onready var AGGRO_RANGE = 80
-onready var PROJECTILE_SPEED = 400;
+onready var PROJECTILE_SPEED = 325;
 
 onready var moveSpeed = 32
 onready var player = get_tree().get_nodes_in_group("Players")[0]
