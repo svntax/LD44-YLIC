@@ -25,9 +25,14 @@ signal healthChanged(newHealth)
 func _ready():
     pass
 
+#Called when a new wave starts and the player needs to reset and sync with the new upgrades
 func updateStats():
+    changeState(State.NORMAL)
     health = Globals.CURRENT_HEALTH
     walkSpeed = Globals.CURRENT_SPEED
+    rangedAttackCooldown = 0
+    for projectile in get_tree().get_nodes_in_group("PlayerProjectiles"):
+        projectile.queue_free()
     global_position = Vector2(200, 180)
     emit_signal("healthChanged", health)
 
