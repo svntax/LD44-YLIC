@@ -64,5 +64,6 @@ func _on_UpgradesMenu_confirmedUpgrades():
 func _on_TransitionAnimationPlayer_animation_finished(anim_name):
     if anim_name == "upgrades_menu_confirmed_transition":
         get_tree().paused = false
+        Globals.currentWave += 1
     if anim_name == "upgrades_menu_transition":
         upgradesMenu.isActive = true

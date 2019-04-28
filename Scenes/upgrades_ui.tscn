@@ -1,7 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://CompassPro.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Scripts/upgrades_controls.gd" type="Script" id=2]
+[ext_resource path="res://increment_btn_normal.tres" type="StyleBox" id=3]
+[ext_resource path="res://increment_btn_pressed.tres" type="StyleBox" id=4]
+[ext_resource path="res://main_btn_normal.tres" type="StyleBox" id=5]
+[ext_resource path="res://normal_btn_pressed.tres" type="StyleBox" id=6]
 
 [sub_resource type="DynamicFont" id=1]
 font_data = ExtResource( 1 )
@@ -36,40 +40,48 @@ script = ExtResource( 2 )
 
 [node name="Panel" type="Panel" parent="."]
 margin_right = 182.0
-margin_bottom = 140.0
+margin_bottom = 167.0
 custom_styles/panel = SubResource( 3 )
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 margin_right = 180.0
-margin_bottom = 139.0
+margin_bottom = 168.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
-margin_left = 21.0
-margin_top = 3.0
-margin_right = 158.0
-margin_bottom = 135.0
+margin_left = 22.0
+margin_top = 9.0
+margin_right = 157.0
+margin_bottom = 158.0
 size_flags_vertical = 0
 
-[node name="HealthLabel" type="Label" parent="CenterContainer/VBoxContainer"]
-margin_right = 137.0
+[node name="WaveLabel" type="Label" parent="CenterContainer/VBoxContainer"]
+margin_right = 135.0
 margin_bottom = 15.0
+custom_colors/font_color = Color( 0.67451, 0.196078, 0.196078, 1 )
+text = "Wave 1 Complete!"
+align = 1
+
+[node name="HealthLabel" type="Label" parent="CenterContainer/VBoxContainer"]
+margin_top = 19.0
+margin_right = 135.0
+margin_bottom = 34.0
 custom_colors/font_color = Color( 0.4, 0.223529, 0.192157, 1 )
 text = "HP Remaining: 100"
 align = 1
 
 [node name="Header2" type="Label" parent="CenterContainer/VBoxContainer"]
-margin_top = 19.0
-margin_right = 137.0
-margin_bottom = 52.0
+margin_top = 38.0
+margin_right = 135.0
+margin_bottom = 71.0
 custom_colors/font_color = Color( 0.4, 0.223529, 0.192157, 1 )
 text = "Select your upgrades!
 "
 align = 1
 
 [node name="SpeedUpgrade" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
-margin_top = 56.0
-margin_right = 137.0
-margin_bottom = 107.0
+margin_top = 75.0
+margin_right = 135.0
+margin_bottom = 126.0
 size_flags_vertical = 0
 
 [node name="SpeedLabel" type="Label" parent="CenterContainer/VBoxContainer/SpeedUpgrade"]
@@ -83,20 +95,36 @@ align = 1
 
 [node name="SpeedIncrease" type="Button" parent="CenterContainer/VBoxContainer/SpeedUpgrade"]
 margin_left = 95.0
-margin_right = 114.0
-margin_bottom = 51.0
+margin_right = 110.0
+margin_bottom = 19.0
+rect_min_size = Vector2( 15, 0 )
+focus_mode = 0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+custom_styles/hover = ExtResource( 3 )
+custom_styles/pressed = ExtResource( 4 )
+custom_styles/normal = ExtResource( 3 )
 text = "+"
 
 [node name="SpeedDecrease" type="Button" parent="CenterContainer/VBoxContainer/SpeedUpgrade"]
-margin_left = 118.0
-margin_right = 137.0
-margin_bottom = 51.0
+margin_left = 114.0
+margin_right = 129.0
+margin_bottom = 19.0
+rect_min_size = Vector2( 15, 0 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+custom_styles/hover = ExtResource( 3 )
+custom_styles/pressed = ExtResource( 4 )
+custom_styles/normal = ExtResource( 3 )
 text = "-"
 
 [node name="ConfirmButton" type="Button" parent="CenterContainer/VBoxContainer"]
-margin_top = 111.0
-margin_right = 137.0
-margin_bottom = 132.0
+margin_top = 130.0
+margin_right = 135.0
+margin_bottom = 149.0
+custom_styles/hover = ExtResource( 5 )
+custom_styles/pressed = ExtResource( 6 )
+custom_styles/normal = ExtResource( 5 )
 text = "Confirm"
 
 [connection signal="pressed" from="CenterContainer/VBoxContainer/SpeedUpgrade/SpeedIncrease" to="." method="_on_SpeedIncrease_pressed"]
