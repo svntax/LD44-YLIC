@@ -85,6 +85,7 @@ func takeDamage(damage):
     if health <= 0:
         spawnBloodParticles(8)
         arena.enemyDestroyed();
+        SoundHandler.casterDeath.play()
         queue_free();
 
 func _ready():

@@ -49,6 +49,7 @@ func takeDamage(damage):
     if health <= 0:
         spawnBloodParticles(8)
         arena.enemyDestroyed();
+        SoundHandler.archerDeath.play()
         queue_free();
 
 func _ready():
