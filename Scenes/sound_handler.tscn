@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Scripts/sound_handler.gd" type="Script" id=1]
 [ext_resource path="res://Audio/arrow_shot.wav" type="AudioStream" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://Audio/basic_enemy_death.wav" type="AudioStream" id=10]
 [ext_resource path="res://Audio/slash01.wav" type="AudioStream" id=11]
 [ext_resource path="res://Audio/player_shoot.wav" type="AudioStream" id=12]
+[ext_resource path="res://Audio/generic_enemy_hit.wav" type="AudioStream" id=13]
 
 [node name="SoundHandler" type="Node"]
 pause_mode = 2
@@ -59,5 +60,9 @@ volume_db = -15.0
 
 [node name="PlayerShoot" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 12 )
-volume_db = -15.0
+volume_db = -21.0
+
+[node name="EnemyHurt" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 13 )
+volume_db = -16.0
 

@@ -20,6 +20,8 @@ func takeDamage(damage):
     if health <= 0:
         return
     health -= damage;
+    if health > 0:
+        SoundHandler.enemyHurt.play()
     if health <= 0:
         arena.enemyDestroyed();
         SoundHandler.basicEnemyDeath.play()

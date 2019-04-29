@@ -9,6 +9,8 @@ onready var playerDeath = get_node("PlayerDeath")
 onready var playerDash = get_node("Dash")
 onready var playerHurt = get_node("PlayerHurt")
 
+onready var enemyHurt = get_node("EnemyHurt")
+
 onready var archerDeath = get_node("ArcherDeath")
 onready var casterDeath = get_node("CasterDeath")
 onready var bullDeath = get_node("BullDeath")

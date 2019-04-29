@@ -58,6 +58,8 @@ func takeDamage(damage):
     if health <= 0:
         return
     spawnBloodParticles(6)
+    if health > 0:
+        SoundHandler.enemyHurt.play()
     damageAnimPlayer.play("enemy_hurt_anim")
     health -= damage;
     if health <= 0:
