@@ -1,12 +1,13 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://arena_tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://arena_tileset_02.tres" type="TileSet" id=2]
 [ext_resource path="res://Scenes/main_menu_ui.tscn" type="PackedScene" id=3]
 [ext_resource path="res://CompassPro.ttf" type="DynamicFontData" id=4]
-[ext_resource path="res://Scenes/bull.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Sprites/player_front.png" type="Texture" id=6]
-[ext_resource path="res://Scenes/archer.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/controls_ui.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/bull.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Sprites/player_front.png" type="Texture" id=7]
+[ext_resource path="res://Scenes/archer.tscn" type="PackedScene" id=8]
 
 [sub_resource type="DynamicFont" id=1]
 size = 32
@@ -56,23 +57,32 @@ margin_bottom = 55.0
 custom_fonts/font = SubResource( 1 )
 text = "Lifeblood Arena"
 
-[node name="bull" parent="." instance=ExtResource( 5 )]
+[node name="ControlsUI" parent="CanvasLayer/UIRoot" instance=ExtResource( 5 )]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_top = -14.0
+margin_bottom = -14.0
+
+[node name="bull" parent="." instance=ExtResource( 6 )]
 position = Vector2( 172.632, 270.526 )
 scale = Vector2( 2, 2 )
 
-[node name="bull2" parent="." instance=ExtResource( 5 )]
+[node name="bull2" parent="." instance=ExtResource( 6 )]
 position = Vector2( 642.632, 270.526 )
 scale = Vector2( 2, 2 )
 
-[node name="bull3" parent="." instance=ExtResource( 5 )]
+[node name="bull3" parent="." instance=ExtResource( 6 )]
 position = Vector2( 562.632, 190.526 )
 scale = Vector2( 2, 2 )
 
-[node name="bull4" parent="." instance=ExtResource( 5 )]
+[node name="bull4" parent="." instance=ExtResource( 6 )]
 position = Vector2( 252.632, 190.526 )
 scale = Vector2( 2, 2 )
 
-[node name="bull5" parent="." instance=ExtResource( 5 )]
+[node name="bull5" parent="." instance=ExtResource( 6 )]
 position = Vector2( 402.632, 240.526 )
 scale = Vector2( 2, 2 )
 
@@ -84,17 +94,17 @@ position = Vector2( 70, 0 )
 [node name="Sprite" type="Sprite" parent="FakePlayer"]
 visible = false
 position = Vector2( 395.789, 253.684 )
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 
 [node name="FakeArena" type="Node2D" parent="." groups=[
 "Arenas",
 ]]
 
-[node name="archer" parent="." instance=ExtResource( 7 )]
+[node name="archer" parent="." instance=ExtResource( 8 )]
 position = Vector2( 584.961, 545.51 )
 scale = Vector2( 2, 2 )
 
-[node name="archer2" parent="." instance=ExtResource( 7 )]
+[node name="archer2" parent="." instance=ExtResource( 8 )]
 position = Vector2( 214.961, 545.51 )
 scale = Vector2( 2, 2 )
 
