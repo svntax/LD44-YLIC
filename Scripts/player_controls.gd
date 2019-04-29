@@ -26,7 +26,7 @@ onready var DASH_SLOWDOWN_DURATION = 0.8;
 onready var DASH_COOLDOWN = 4;
 onready var dash_cooldown = 0;
 
-
+onready var MIN_MELEE_DAMAGE = 5
 
 var player_projectile = load("res://Scenes/player_projectile.tscn")
 
@@ -53,6 +53,11 @@ func updateStats():
 
 func changeState(newState):
     currentState = newState
+    match newState:
+        State.ATTACK:
+            slashPivot.get_node("SlashArea").monitoring = true
+        State.NORMAL:
+            slashPivot.get_node("SlashArea").monitoring = false
 
 func takeDamage(amount):
     damageAnimPlayer.play("player_hurt_anim")
@@ -157,11 +162,10 @@ func _physics_process(delta):
                 p2.direction = (projectileMotion - perp_vector/8).normalized();        
         
     
-    if currentState == State.ATTACK:
-        for body in slashPivot.get_node("SlashArea").get_overlapping_bodies():
-            if body.is_in_group("Enemies"):
-                #TODO registers multiple times, need melee damage cooldown for enemies
-                body.takeDamage(1)
+#    if currentState == State.ATTACK:
+#        for body in slashPivot.get_node("SlashArea").get_overlapping_bodies():
+#            if body.is_in_group("Enemies"):
+#                body.takeDamage(1)
     
     if currentState == State.NORMAL:
         self.move_and_slide(walkVel.normalized() * effective_movespeed)
@@ -185,7 +189,10 @@ func _on_Area2D_body_exited(body):
 func _on_DamageTimer_timeout():
     self.takeDamage(2) #TODO damage amount specific to enemy?
 
-
 func _on_AttackAnimationPlayer_animation_finished(anim_name):
     if anim_name == "slash_anim":
         changeState(State.NORMAL)
+
+func _on_SlashArea_body_entered(body):
+    if body.is_in_group("Enemies"):
+        body.takeDamage(MIN_MELEE_DAMAGE)

@@ -84,6 +84,7 @@ shape = SubResource( 2 )
 
 [node name="SlashArea" type="Area2D" parent="SlashPivot"]
 position = Vector2( 0, -14 )
+monitoring = false
 
 [node name="SlashSprite" type="Sprite" parent="SlashPivot/SlashArea"]
 visible = false
@@ -102,4 +103,5 @@ anims/player_hurt_anim = SubResource( 5 )
 [connection signal="timeout" from="DamageTimer" to="." method="_on_DamageTimer_timeout"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]
+[connection signal="body_entered" from="SlashPivot/SlashArea" to="." method="_on_SlashArea_body_entered"]
 [connection signal="animation_finished" from="AttackAnimationPlayer" to="." method="_on_AttackAnimationPlayer_animation_finished"]
