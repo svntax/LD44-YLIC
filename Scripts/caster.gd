@@ -16,6 +16,9 @@ onready var TELEPORT_LOW_END = 5;
 onready var TELEPORT_HIGH_END = 15;
 onready var teleport_timing = rand_range(TELEPORT_LOW_END, TELEPORT_HIGH_END);
 
+onready var contact_damage = 2;
+onready var PROJECTILE_DAMAGE = 5;
+
 var enemy_projectile = load("res://Scenes/enemy_projectile.tscn")
 
 var deathParticles = load("res://Scenes/death_particles.tscn")
@@ -143,4 +146,5 @@ func _physics_process(delta):
         projectile_test.target_player = true;
         projectile_test.limited_lifespan = true;
         projectile_test.lifespan = 4.5;
+        projectile_test.damage = PROJECTILE_DAMAGE;
         shotTimer = 5;

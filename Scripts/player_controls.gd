@@ -26,7 +26,8 @@ onready var DASH_SLOWDOWN_DURATION = 0.8;
 onready var DASH_COOLDOWN = 4;
 onready var dash_cooldown = 0;
 
-onready var MIN_MELEE_DAMAGE = 4
+onready var MIN_MELEE_DAMAGE = 6
+onready var PLAYER_PROJECTILE_DAMAGE = 4;
 
 var player_projectile = load("res://Scenes/player_projectile.tscn")
 
@@ -181,7 +182,7 @@ func _physics_process(delta):
             projectile_test.global_position = global_position;
             projectile_test.direction = projectileMotion;
             projectile_test.speed = effective_projectile_speed;
-            projectile_test.damage = 5;
+            projectile_test.damage = PLAYER_PROJECTILE_DAMAGE;
             rangedAttackCooldown = RANGED_ATTACK_COOLDOWN_TIME;
         
             if Globals.RANGED_ATTACK_LEVEL == 3:
@@ -194,8 +195,8 @@ func _physics_process(delta):
                 p2.global_position = global_position;
                 p1.speed = effective_projectile_speed;
                 p2.speed = effective_projectile_speed;
-                p1.damage = 5;
-                p2.damage = 5;
+                p1.damage = PLAYER_PROJECTILE_DAMAGE;
+                p2.damage = PLAYER_PROJECTILE_DAMAGE;
                 p1.direction = (projectileMotion + perp_vector/8).normalized();
                 p2.direction = (projectileMotion - perp_vector/8).normalized();        
         
@@ -213,10 +214,10 @@ func _on_Area2D_body_entered(body):
         if enemyCount == 0 and get_node("DamageTimer").is_stopped():
             get_node("DamageTimer").start()
             if not invincible:
-                self.takeDamage(2) #TODO damage amount specific to enemy?
+                self.takeDamage(body.contact_damage) #TODO damage amount specific to enemy?
         enemyCount += 1
     if body.is_in_group("EnemyProjectiles"):
-        self.takeDamage(2) #TODO projectile-specific damage?
+        self.takeDamage(body.damage) #TODO projectile-specific damage?
         body.queue_free()
 
 func _on_Area2D_body_exited(body):
@@ -226,8 +227,16 @@ func _on_Area2D_body_exited(body):
             get_node("DamageTimer").stop()
 
 func _on_DamageTimer_timeout():
+    var damageTaken = false;
+    var highestDamage = 0;
     if not invincible:
-        self.takeDamage(2) #TODO damage amount specific to enemy?
+        for body in get_node("Area2D").get_overlapping_bodies():
+            if body.is_in_group("Enemies"):
+                damageTaken = true;
+                if body.contact_damage > highestDamage:
+                    highestDamage = body.contact_damage;
+        if damageTaken:
+            self.takeDamage(highestDamage);
 
 func _on_AttackAnimationPlayer_animation_finished(anim_name):
     if anim_name == "slash_anim":

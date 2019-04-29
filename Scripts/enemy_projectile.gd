@@ -6,6 +6,7 @@ onready var accel;
 onready var target_player = false;
 onready var limited_lifespan = false;
 onready var lifespan;
+onready var damage = 0;
 
 onready var player = get_tree().get_nodes_in_group("Players")[0]
 
