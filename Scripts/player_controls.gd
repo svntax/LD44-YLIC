@@ -26,7 +26,7 @@ onready var DASH_SLOWDOWN_DURATION = 0.8;
 onready var DASH_COOLDOWN = 4;
 onready var dash_cooldown = 0;
 
-onready var MIN_MELEE_DAMAGE = 5
+onready var MIN_MELEE_DAMAGE = 4
 
 var player_projectile = load("res://Scenes/player_projectile.tscn")
 

@@ -22,10 +22,13 @@ onready var RANDOM_MOVE_DURATION = 1;
 onready var random_move_ttl = 0;
 onready var random_move_direction;
 
+onready var damageAnimPlayer = get_node("DamageAnimationPlayer")
+
 func faceThePlayer():
     get_node("Sprite").set_flip_h(player.global_position.x > self.global_position.x)
 
 func takeDamage(damage):
+    damageAnimPlayer.play("enemy_hurt_anim")
     health -= damage;
     if health <= 0:
         arena.enemyDestroyed();

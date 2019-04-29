@@ -34,10 +34,13 @@ onready var arena = get_tree().get_nodes_in_group("Arenas")[0]
 onready var STARTING_HEALTH = 15;
 onready var health = STARTING_HEALTH;
 
+onready var damageAnimPlayer = get_node("DamageAnimationPlayer")
+
 func faceThePlayer():
     get_node("Sprite").set_flip_h(player.global_position.x > self.global_position.x)
 
 func takeDamage(damage):
+    damageAnimPlayer.play("enemy_hurt_anim")
     health -= damage;
     if health <= 0:
         arena.enemyDestroyed();
