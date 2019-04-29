@@ -30,6 +30,8 @@ onready var random_move_y = 0;
 onready var random_move_duration = 0;
 onready var random_move_direction;
 onready var true_position;
+onready var random_move_low = 1.5;
+onready var random_move_high = 2.5;
 
 onready var arena = get_tree().get_nodes_in_group("Arenas")[0]
 onready var STARTING_HEALTH = 15;
@@ -145,7 +147,7 @@ func _physics_process(delta):
             random_move_duration -= delta;
             if random_move_duration <= 0:
                 random_moving = false;
-                random_move_cooldown = 2;
+                random_move_cooldown = rand_range(random_move_low, random_move_high);
             else:
                 get_node("Sprite").set_flip_h(random_move_direction.x > 0)
                 self.move_and_slide(random_move_direction.normalized() * moveSpeed)

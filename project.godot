@@ -15,8 +15,8 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Lifeblood Arena"
-run/main_scene="res://Scenes/main_menu.tscn"
+config/name="LudumDare44"
+run/main_scene="res://Scenes/gameplay.tscn"
 config/icon="res://icon.png"
 
 [autoload]
