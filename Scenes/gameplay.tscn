@@ -142,8 +142,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
+margin_top = -15.0
 margin_right = 0.0
-margin_bottom = 0.0
+margin_bottom = -15.0
 
 [node name="GameOverRoot" type="Control" parent="UILayer"]
 pause_mode = 2
