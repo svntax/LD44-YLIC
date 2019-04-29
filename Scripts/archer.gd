@@ -27,8 +27,17 @@ onready var random_move_direction;
 
 onready var damageAnimPlayer = get_node("DamageAnimationPlayer")
 
+func toggleAimingSprite(flag):
+    if flag:
+        get_node("Sprite").hide()
+        get_node("Sprite2").show()
+    else:
+        get_node("Sprite").show()
+        get_node("Sprite2").hide()
+
 func faceThePlayer():
     get_node("Sprite").set_flip_h(player.global_position.x > self.global_position.x)
+    get_node("Sprite2").set_flip_h(player.global_position.x > self.global_position.x)
 
 func spawnBloodParticles(amount):
     var particles = deathParticles.instance()
@@ -83,10 +92,14 @@ func _physics_process(delta):
             random_move_direction = Vector2(rand_range(-1, 1), rand_range(-1, 1));
         self.move_and_slide(random_move_direction.normalized() * moveSpeed);
         get_node("Sprite").set_flip_h(random_move_direction.x > 0)
-        
+        get_node("Sprite2").set_flip_h(random_move_direction.x > 0)
         
     shotTimer -= delta;
+    if shotTimer < 2:
+        toggleAimingSprite(true)
+        faceThePlayer()
     if shotTimer <= 0:
+        toggleAimingSprite(false)
         var projectile_test = enemy_projectile.instance();
         get_parent().add_child(projectile_test);
         SoundHandler.arrowShoot.play()
