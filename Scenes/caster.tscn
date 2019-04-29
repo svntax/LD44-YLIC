@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scripts/caster.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/caster_left.png" type="Texture" id=2]
@@ -23,6 +23,26 @@ tracks/0/keys = {
 "values": [ Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
+[sub_resource type="ParticlesMaterial" id=3]
+flag_disable_z = true
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 70.0
+initial_velocity_random = 0.5
+orbit_velocity = 1.5
+orbit_velocity_random = 0.0
+scale = 3.0
+scale_random = 0.5
+color = Color( 0.270588, 0.156863, 0.235294, 1 )
+
+[sub_resource type="ParticlesMaterial" id=4]
+flag_disable_z = true
+spread = 0.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 100.0
+orbit_velocity = 1.0
+orbit_velocity_random = 0.0
+scale = 3.0
+
 [node name="caster" type="KinematicBody2D" groups=[
 "Enemies",
 ]]
@@ -36,4 +56,15 @@ shape = SubResource( 1 )
 
 [node name="DamageAnimationPlayer" type="AnimationPlayer" parent="."]
 anims/enemy_hurt_anim = SubResource( 2 )
+
+[node name="AttackParticles" type="Particles2D" parent="."]
+position = Vector2( 0, 4 )
+emitting = false
+process_material = SubResource( 3 )
+
+[node name="TeleportParticles" type="Particles2D" parent="."]
+position = Vector2( -2, 15 )
+emitting = false
+amount = 6
+process_material = SubResource( 4 )
 

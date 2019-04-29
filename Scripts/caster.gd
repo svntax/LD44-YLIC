@@ -118,13 +118,20 @@ func _physics_process(delta):
     
     if teleport_timing > 0:
         teleport_timing -= delta;
+    if teleport_timing < 2 and not get_node("TeleportParticles").is_emitting():
+        get_node("TeleportParticles").set_emitting(true)
     if teleport_timing <= 0:
         teleport_timing = rand_range(TELEPORT_LOW_END, TELEPORT_HIGH_END);
+        if get_node("TeleportParticles").is_emitting():
+            get_node("TeleportParticles").set_emitting(false)
         carry_out_teleport();
-        
     
     shotTimer -= delta;
+    if shotTimer <= 2 and not get_node("AttackParticles").is_emitting():
+        get_node("AttackParticles").set_emitting(true)
     if shotTimer <= 0:
+        if get_node("AttackParticles").is_emitting():
+            get_node("AttackParticles").set_emitting(false)
         var projectile_test = enemy_projectile.instance();
         get_parent().add_child(projectile_test);
         projectile_test.get_node("AnimationPlayer").play("magic_projectile_anim")
