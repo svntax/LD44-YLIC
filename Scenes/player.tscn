@@ -75,7 +75,7 @@ shape = SubResource( 1 )
 wait_time = 0.3
 
 [node name="InvincibleTimer" type="Timer" parent="."]
-wait_time = 0.3
+wait_time = 0.35
 
 [node name="MeleeCooldown" type="Timer" parent="."]
 wait_time = 0.5

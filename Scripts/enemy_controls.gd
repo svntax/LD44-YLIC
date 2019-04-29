@@ -15,6 +15,8 @@ onready var movement_cooldown = 1;
 onready var movement_ttl = 0;
 onready var movement_direction;
 
+onready var contact_damage = 4;
+
 func takeDamage(damage):
     #Can't take damage if already dead
     if health <= 0:

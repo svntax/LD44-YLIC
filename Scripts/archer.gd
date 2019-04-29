@@ -17,6 +17,7 @@ onready var STARTING_HEALTH = 5;
 onready var health = STARTING_HEALTH;
 
 onready var contact_damage = 3;
+onready var PROJECTILE_DAMAGE = 3;
 
 onready var RANDOM_MOVE_COOLDOWN = 3;
 onready var random_move_cooldown = 0;
@@ -92,4 +93,6 @@ func _physics_process(delta):
         projectile_test.global_position = global_position;
         projectile_test.direction = dist.normalized();
         projectile_test.speed = PROJECTILE_SPEED;
+        projectile_test.damage = PROJECTILE_DAMAGE;
         shotTimer = 5;
+        
