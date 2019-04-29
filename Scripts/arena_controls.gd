@@ -29,6 +29,14 @@ layout04,
 layout05
 ]
 
+#Hard levels start spawning after this wave
+var HARD_LEVELS_START = 3
+var layoutHard01 = load("res://Scenes/layoutHard_01.tscn")
+
+var arenaLayoutsHard = [
+layoutHard01
+]
+
 signal playerDeathAnimationFinished()
 
 # Called when the node enters the scene tree for the first time.
@@ -39,7 +47,11 @@ func spawnNewLayout():
     for child in layoutRoot.get_children():
         child.queue_free()
     
-    var newLayout = arenaLayouts[nextLayoutChoice].instance()
+    var newLayout
+    if Globals.currentWave < HARD_LEVELS_START:
+        newLayout = arenaLayouts[nextLayoutChoice].instance()
+    else:
+        newLayout = arenaLayoutsHard[nextLayoutChoice].instance()
     layoutRoot.add_child(newLayout)
     #enemyCount = get_tree().get_nodes_in_group("Enemies").size()
     enemyCount = 0
@@ -53,7 +65,10 @@ func enemyDestroyed():
             player.resetDashCooldown()
     if enemyCount <= 0: #End of wave
         Globals.CURRENT_HEALTH = player.health
-        nextLayoutChoice = randi() % arenaLayouts.size()
+        if Globals.currentWave < HARD_LEVELS_START:
+            nextLayoutChoice = randi() % arenaLayouts.size()
+        else:
+            nextLayoutChoice = randi() % arenaLayoutsHard.size()
         upgradesMenu.syncValues()
         transitions.play("upgrades_menu_transition")
         get_tree().paused = true
