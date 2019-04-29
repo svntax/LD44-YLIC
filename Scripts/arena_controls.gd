@@ -18,11 +18,15 @@ onready var nextLayoutChoice = -1
 var layoutBasic = load("res://Scenes/layout_basic.tscn")
 var layout02 = load("res://Scenes/layout_02.tscn")
 var layout03 = load("res://Scenes/layout_03.tscn")
+var layout04 = load("res://Scenes/layout_04.tscn")
+var layout05 = load("res://Scenes/layout_05.tscn")
 
 var arenaLayouts = [
 layoutBasic,
 layout02,
-layout03
+layout03,
+layout04,
+layout05
 ]
 
 signal playerDeathAnimationFinished()
