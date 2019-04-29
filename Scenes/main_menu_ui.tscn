@@ -33,4 +33,16 @@ custom_styles/pressed = ExtResource( 4 )
 custom_styles/normal = ExtResource( 3 )
 text = "Start"
 
+[node name="Controls" type="Button" parent="."]
+margin_left = -44.0
+margin_top = 20.0
+margin_right = 44.0
+margin_bottom = 44.0
+rect_min_size = Vector2( 88, 24 )
+custom_styles/hover = ExtResource( 3 )
+custom_styles/pressed = ExtResource( 4 )
+custom_styles/normal = ExtResource( 3 )
+text = "Controls"
+
 [connection signal="pressed" from="Container/Start" to="." method="_on_Start_pressed"]
+[connection signal="pressed" from="Controls" to="." method="_on_Controls_pressed"]
