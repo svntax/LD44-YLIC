@@ -94,7 +94,8 @@ func _ready():
     pass
 
 func _process(delta):
-    faceThePlayer()
+    #faceThePlayer()
+    pass
 
 func _physics_process(delta):
     var playerPos = player.global_position
@@ -109,12 +110,14 @@ func _physics_process(delta):
             random_move_cooldown = RANDOM_MOVE_COOLDOWN;
     
     if dist.length() < AGGRO_RANGE:
+        faceThePlayer()
         self.move_and_slide(dist.normalized() * moveSpeed * -1);
     elif random_move_cooldown <= 0:
         if random_move_ttl <= 0:
             random_move_ttl = RANDOM_MOVE_DURATION;
             random_move_direction = Vector2(rand_range(-1, 1), rand_range(-1, 1));
         self.move_and_slide(random_move_direction.normalized() * moveSpeed);
+        get_node("Sprite").set_flip_h(random_move_direction.x > 0)
     
     if teleport_timing > 0:
         teleport_timing -= delta;
