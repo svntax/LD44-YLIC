@@ -63,6 +63,7 @@ func takeDamage(damage):
     if health <= 0:
         spawnBloodParticles(16)
         arena.enemyDestroyed();
+        SoundHandler.bullDeath.play()
         queue_free();
 
 func _ready():

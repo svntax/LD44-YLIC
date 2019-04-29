@@ -12,11 +12,12 @@ default_font = SubResource( 1 )
 
 [sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.356863, 0.431373, 0.882353, 1 )
+draw_center = false
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color( 0, 0, 0, 1 )
+border_color = Color( 0, 0, 0, 0 )
 
 [sub_resource type="Animation" id=4]
 resource_name = "low_hp_anim"
@@ -68,25 +69,23 @@ custom_styles/panel = SubResource( 3 )
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 margin_left = 4.0
 margin_top = 2.0
-margin_right = 67.0
-margin_bottom = 51.0
+margin_right = 71.0
+margin_bottom = 23.0
 size_flags_horizontal = 3
 
 [node name="HealthIcon" type="TextureRect" parent="HBoxContainer"]
 margin_right = 20.0
-margin_bottom = 51.0
+margin_bottom = 21.0
 texture = ExtResource( 3 )
 stretch_mode = 3
 
 [node name="HealthLabel" type="Label" parent="HBoxContainer"]
 margin_left = 24.0
 margin_right = 67.0
-margin_bottom = 51.0
-size_flags_vertical = 0
+margin_bottom = 21.0
+size_flags_vertical = 3
 custom_colors/font_color = Color( 1, 1, 1, 1 )
-text = "HP 100
-
-"
+text = "HP 100"
 valign = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

@@ -65,13 +65,13 @@ func acceptable_position(targetLocation):
     return true;
     
 func carry_out_teleport():
-    var teleport_spot = Vector2(rand_range(64, 300-64), rand_range(64, 200-64));
+    var teleport_spot = Vector2(rand_range(64, 300-64), rand_range(80, 200-80));
     for i in range(100):
         if acceptable_position(teleport_spot):
             global_position = teleport_spot;
             return;
         else:
-            teleport_spot = Vector2(rand_range(64, 300-64), rand_range(64, 200-64));
+            teleport_spot = Vector2(rand_range(64, 300-64), rand_range(80, 200-80));
     print("Failed to find teleport location");
     return;
 

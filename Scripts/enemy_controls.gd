@@ -22,6 +22,7 @@ func takeDamage(damage):
     health -= damage;
     if health <= 0:
         arena.enemyDestroyed();
+        SoundHandler.basicEnemyDeath.play()
         queue_free();
 
 func _ready():

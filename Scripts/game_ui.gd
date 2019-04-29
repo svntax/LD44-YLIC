@@ -1,6 +1,6 @@
 extends Control
 
-onready var healthLabel = get_node("HBoxContainer/HealthLabel")
+onready var healthLabel = find_node("HealthLabel")
 onready var transitions = get_parent().get_parent().get_node("TransitionAnimationPlayer")
 onready var gameOverRoot = get_parent().find_node("GameOverRoot")
 onready var player = get_tree().get_nodes_in_group("Players")[0]

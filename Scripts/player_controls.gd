@@ -39,6 +39,8 @@ onready var invincible : bool = false
 onready var canMeleeAttack : bool = true
 
 signal healthChanged(newHealth)
+signal rangedCooldownChanged(newValue)
+signal dashCooldownChanged(newValue)
 
 func _ready():
     pass
@@ -53,6 +55,11 @@ func updateStats():
         projectile.queue_free()
     global_position = Vector2(200, 180)
     emit_signal("healthChanged", health)
+    
+    rangedAttackCooldown = 0
+    dash_cooldown = 0
+    emit_signal("rangedCooldownChanged", rangedAttackCooldown)
+    emit_signal("dashCooldownChanged", dash_cooldown)
 
 func changeState(newState):
     currentState = newState
@@ -115,15 +122,17 @@ func _physics_process(delta):
         
     if dash_cooldown > 0:
         dash_cooldown -= delta;
-        
+        emit_signal("dashCooldownChanged", dash_cooldown)
 
     if rangedAttackCooldown > 0:
         rangedAttackCooldown -= delta;
+        emit_signal("rangedCooldownChanged", rangedAttackCooldown)
 
     if (currentState == State.NORMAL) and canMeleeAttack and Input.is_action_just_pressed("ATTACK"):
         walkVel.x = 0
         walkVel.y = 0
         attackAnimPlayer.play("slash_anim")
+        SoundHandler.slash01.play()
         
         canMeleeAttack = false
         get_node("MeleeCooldown").start()
@@ -150,6 +159,8 @@ func _physics_process(delta):
             else:
                 effective_projectile_speed = PROJECTILE_SPEED_SLOW;
                 
+            SoundHandler.playerShoot.play()
+            
             var projectile_test = player_projectile.instance();
             get_parent().add_child(projectile_test);
             projectile_test.global_position = global_position;

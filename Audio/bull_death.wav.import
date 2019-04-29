@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/bull_death.wav-4f716a800ad0de60028b8f065f9a23a6.sample"
+
+[deps]
+
+source_file="res://Audio/bull_death.wav"
+dest_files=[ "res://.import/bull_death.wav-4f716a800ad0de60028b8f065f9a23a6.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0
