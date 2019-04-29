@@ -51,11 +51,15 @@ func acceptable_position(targetLocation):
     var dist = playerPos - targetLocation
     if dist.length() < 32:
         return false;
-    for i in range(enemies.size()):
-        var wr = weakref(enemies[i]);
-        if !wr.get_ref():
-            continue;
-        dist = enemies[i].global_position - targetLocation;
+#    for i in range(enemies.size()):
+#        var wr = weakref(enemies[i]);
+#        if !wr.get_ref():
+#            continue;
+#        dist = enemies[i].global_position - targetLocation;
+#        if dist.length() < 32:
+#            return false;
+    for enemyNode in get_tree().get_nodes_in_group("Enemies"):
+        dist = enemyNode.global_position - targetLocation;
         if dist.length() < 32:
             return false;
     return true;
