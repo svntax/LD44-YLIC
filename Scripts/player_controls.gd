@@ -61,6 +61,19 @@ func updateStats():
     emit_signal("rangedCooldownChanged", rangedAttackCooldown)
     emit_signal("dashCooldownChanged", dash_cooldown)
 
+func showDashTextEffect(pos):
+    var dashTextRoot = get_parent().get_node("DashMessageRoot")
+    dashTextRoot.set_global_position(self.global_position)
+    get_parent().get_node("DashTextEffects").play("dash_reset_text_anim")
+
+func resetDashCooldown():
+    if dash_cooldown > 0:
+        showDashTextEffect(self.global_position)
+    dash_cooldown = 0
+    dash_ttl = 0
+    dash_slowdown_ttl = 0
+    emit_signal("dashCooldownChanged", dash_cooldown)
+
 func changeState(newState):
     currentState = newState
     match newState:
@@ -113,6 +126,8 @@ func _physics_process(delta):
     if dash_ttl > 0:
         dash_ttl -= delta;
         effective_movespeed = walkSpeed + DASH_SPEEDUP;
+        if Globals.DASH_LEVEL >= 2:
+            effective_movespeed += Globals.DASH_INCREMENT
         if dash_ttl <= 0:
             dash_slowdown_ttl = DASH_SLOWDOWN_DURATION;
             

@@ -13,6 +13,7 @@ var SPEED_INCREMENT = 20
 var RANGED_ATTACK_LEVEL = 1
 
 var DASH_LEVEL = 1
+var DASH_INCREMENT = 200
 
 var currentWave = 1
 var highScore = 0

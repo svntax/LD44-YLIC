@@ -43,6 +43,8 @@ func spawnNewLayout():
 
 func enemyDestroyed():
     enemyCount -= 1
+    if Globals.DASH_LEVEL >= 3:
+            player.resetDashCooldown()
     if enemyCount <= 0: #End of wave
         Globals.CURRENT_HEALTH = player.health
         nextLayoutChoice = randi() % arenaLayouts.size()
