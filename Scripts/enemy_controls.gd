@@ -10,6 +10,9 @@ onready var STARTING_HEALTH = 10;
 onready var health = STARTING_HEALTH;
 
 func takeDamage(damage):
+    #Can't take damage if already dead
+    if health <= 0:
+        return
     health -= damage;
     if health <= 0:
         arena.enemyDestroyed();

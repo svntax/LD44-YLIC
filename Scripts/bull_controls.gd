@@ -40,6 +40,9 @@ func faceThePlayer():
     get_node("Sprite").set_flip_h(player.global_position.x > self.global_position.x)
 
 func takeDamage(damage):
+    #Can't take damage if already dead
+    if health <= 0:
+        return
     damageAnimPlayer.play("enemy_hurt_anim")
     health -= damage;
     if health <= 0:

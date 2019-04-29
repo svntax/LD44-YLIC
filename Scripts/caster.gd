@@ -57,6 +57,9 @@ func carry_out_teleport():
     return;
 
 func takeDamage(damage):
+    #Can't take damage if already dead
+    if health <= 0:
+        return
     damageAnimPlayer.play("enemy_hurt_anim")
     health -= damage;
     if health <= 0:

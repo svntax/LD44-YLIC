@@ -60,7 +60,9 @@ func changeState(newState):
             slashPivot.get_node("SlashArea").monitoring = false
 
 func takeDamage(amount):
-    damageAnimPlayer.play("player_hurt_anim")
+    #Don't play the hurt animation effect if already dead
+    if health > 0:
+        damageAnimPlayer.play("player_hurt_anim")
     health -= amount
     if health <= 0:
         health = 0
