@@ -17,7 +17,7 @@ _global_script_class_icons={
 
 config/name="Lifeblood Arena"
 run/main_scene="res://Scenes/main_menu.tscn"
-config/icon="res://icon.png"
+config/icon="res://Sprites/archer_left.png"
 
 [autoload]
 
