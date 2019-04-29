@@ -30,11 +30,13 @@ layout05
 ]
 
 #Hard levels start spawning after this wave
-var HARD_LEVELS_START = 3
+var HARD_LEVELS_START = 5
 var layoutHard01 = load("res://Scenes/layoutHard_01.tscn")
+var layoutHard02 = load("res://Scenes/layoutHard_02.tscn")
 
 var arenaLayoutsHard = [
-layoutHard01
+layoutHard01,
+layoutHard02
 ]
 
 signal playerDeathAnimationFinished()
