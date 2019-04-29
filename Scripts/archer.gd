@@ -19,7 +19,8 @@ onready var health = STARTING_HEALTH;
 onready var contact_damage = 3;
 onready var PROJECTILE_DAMAGE = 3;
 
-onready var RANDOM_MOVE_COOLDOWN = 3;
+onready var RANDOM_MOVE_LOW = 1.5;
+onready var RANDOM_MOVE_COOLDOWN = 3.5;
 onready var random_move_cooldown = 0;
 onready var RANDOM_MOVE_DURATION = 1;
 onready var random_move_ttl = 0;

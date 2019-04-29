@@ -6,7 +6,8 @@ onready var PROJECTILE_SPEED = 100;
 onready var moveSpeed = 32
 onready var player = get_tree().get_nodes_in_group("Players")[0]
 
-onready var RANDOM_MOVE_COOLDOWN = 3;
+onready var RANDOM_MOVE_LOW = 1;
+onready var RANDOM_MOVE_HIGH = 3.5;
 onready var random_move_cooldown = 0;
 onready var RANDOM_MOVE_DURATION = 1;
 onready var random_move_ttl = 0;
@@ -110,7 +111,7 @@ func _physics_process(delta):
     if random_move_ttl > 0:
         random_move_ttl -= delta;
         if random_move_ttl <= 0:
-            random_move_cooldown = RANDOM_MOVE_COOLDOWN;
+            random_move_cooldown = rand_range(RANDOM_MOVE_LOW, RANDOM_MOVE_HIGH);
     
     if dist.length() < AGGRO_RANGE:
         faceThePlayer()
