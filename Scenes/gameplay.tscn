@@ -125,9 +125,9 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 margin_left = -195.0
-margin_top = -323.0
+margin_top = -322.5
 margin_right = 7.0
-margin_bottom = -294.0
+margin_bottom = -293.5
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
