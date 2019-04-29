@@ -72,6 +72,12 @@ position = Vector2( 0, 1 )
 shape = SubResource( 1 )
 
 [node name="DamageTimer" type="Timer" parent="."]
+wait_time = 0.3
+
+[node name="InvincibleTimer" type="Timer" parent="."]
+wait_time = 0.3
+
+[node name="MeleeCooldown" type="Timer" parent="."]
 wait_time = 0.5
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -102,6 +108,8 @@ anims/slash_anim = SubResource( 4 )
 anims/player_hurt_anim = SubResource( 5 )
 
 [connection signal="timeout" from="DamageTimer" to="." method="_on_DamageTimer_timeout"]
+[connection signal="timeout" from="InvincibleTimer" to="." method="_on_InvincibleTimer_timeout"]
+[connection signal="timeout" from="MeleeCooldown" to="." method="_on_MeleeCooldown_timeout"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]
 [connection signal="body_entered" from="SlashPivot/SlashArea" to="." method="_on_SlashArea_body_entered"]

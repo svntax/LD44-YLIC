@@ -35,6 +35,9 @@ onready var enemyCount : int = 0
 enum State {NORMAL, ATTACK}
 onready var currentState = State.NORMAL
 
+onready var invincible : bool = false
+onready var canMeleeAttack : bool = true
+
 signal healthChanged(newHealth)
 
 func _ready():
@@ -117,11 +120,17 @@ func _physics_process(delta):
     if rangedAttackCooldown > 0:
         rangedAttackCooldown -= delta;
 
-    if (currentState == State.NORMAL) and Input.is_action_just_pressed("ATTACK"):
+    if (currentState == State.NORMAL) and canMeleeAttack and Input.is_action_just_pressed("ATTACK"):
         walkVel.x = 0
         walkVel.y = 0
         attackAnimPlayer.play("slash_anim")
+        
+        canMeleeAttack = false
+        get_node("MeleeCooldown").start()
         changeState(State.ATTACK)
+        if not invincible:
+            invincible = true
+            get_node("InvincibleTimer").start()
         
         var clickPos : Vector2 = get_global_mouse_position()
         var moveVector : Vector2 = (clickPos - global_position).normalized() * attackDashSpeed
@@ -177,7 +186,8 @@ func _on_Area2D_body_entered(body):
     if body.is_in_group("Enemies"):
         if enemyCount == 0 and get_node("DamageTimer").is_stopped():
             get_node("DamageTimer").start()
-            self.takeDamage(2) #TODO damage amount specific to enemy?
+            if not invincible:
+                self.takeDamage(2) #TODO damage amount specific to enemy?
         enemyCount += 1
     if body.is_in_group("EnemyProjectiles"):
         self.takeDamage(2) #TODO projectile-specific damage?
@@ -190,7 +200,8 @@ func _on_Area2D_body_exited(body):
             get_node("DamageTimer").stop()
 
 func _on_DamageTimer_timeout():
-    self.takeDamage(2) #TODO damage amount specific to enemy?
+    if not invincible:
+        self.takeDamage(2) #TODO damage amount specific to enemy?
 
 func _on_AttackAnimationPlayer_animation_finished(anim_name):
     if anim_name == "slash_anim":
@@ -199,3 +210,10 @@ func _on_AttackAnimationPlayer_animation_finished(anim_name):
 func _on_SlashArea_body_entered(body):
     if body.is_in_group("Enemies"):
         body.takeDamage(MIN_MELEE_DAMAGE)
+
+func _on_InvincibleTimer_timeout():
+    invincible = false
+
+
+func _on_MeleeCooldown_timeout():
+    canMeleeAttack = true
