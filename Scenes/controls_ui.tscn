@@ -56,5 +56,5 @@ custom_colors/font_color = Color( 0.4, 0.223529, 0.192157, 1 )
 text = "WASD/Arrow keys:  Move
 Left click:            Melee Attack
 Right click:          Ranged Attack
-Spacebar:            Dash"
+Space/Ctrl:            Dash"
 
