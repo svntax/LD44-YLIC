@@ -17,10 +17,10 @@ onready var rangedAttackCooldown = 0;
 
 onready var DASH_DURATION = 0.1;
 onready var dash_ttl = 0;
-onready var DASH_SPEEDUP_FACTOR = 8;
+onready var DASH_SPEEDUP = 300;
 
 onready var dash_slowdown_ttl = 0;
-onready var DASH_SLOWDOWN_FACTOR = 0.3;
+onready var DASH_SLOWDOWN_FACTOR = 1;
 onready var DASH_SLOWDOWN_DURATION = 0.8;
 
 onready var DASH_COOLDOWN = 4;
@@ -101,7 +101,7 @@ func _physics_process(delta):
         
     if dash_ttl > 0:
         dash_ttl -= delta;
-        effective_movespeed = walkSpeed * DASH_SPEEDUP_FACTOR;
+        effective_movespeed = walkSpeed + DASH_SPEEDUP;
         if dash_ttl <= 0:
             dash_slowdown_ttl = DASH_SLOWDOWN_DURATION;
             

@@ -75,7 +75,7 @@ func _physics_process(delta):
         if not charge_moving:
             faceThePlayer()
         if charging == false:
-            charge_rumble = 2;
+            charge_rumble = 1.75;
             true_position = position;
         charging = true;
        # print("beginning charge");
@@ -96,7 +96,7 @@ func _physics_process(delta):
             offset = Vector2(randf(), randf());
             #print("rumbling with offset: ", offset)
             position = true_position + offset;
-        if charging and charge_rumble > 0 and charge_rumble < 1 and locked_on == false:
+        if charging and charge_rumble > 0 and charge_rumble < 0.75 and locked_on == false:
             
             locked_on = true;
             target = playerPos;
