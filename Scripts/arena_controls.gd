@@ -35,19 +35,11 @@ func spawnNewLayout():
     
     var newLayout = arenaLayouts[nextLayoutChoice].instance()
     layoutRoot.add_child(newLayout)
-    enemyCount = get_tree().get_nodes_in_group("Enemies").size()
-    
-#    for i in range(3):
-#        enemyCount += 1
-#        var enemy
-#        if i%3 == 0:
-#            enemy = archerEnemy.instance()
-#        elif i%2 == 0:
-#            enemy = bullEnemy.instance()
-#        else:
-#            enemy = casterEnemy.instance()
-#        self.add_child(enemy)
-#        enemy.set_global_position(Vector2(randi() % 320, randi() % 50 + 100))
+    #enemyCount = get_tree().get_nodes_in_group("Enemies").size()
+    enemyCount = 0
+    for node in newLayout.get_children():
+        if node.is_in_group("Enemies"):
+            enemyCount += 1
 
 func enemyDestroyed():
     enemyCount -= 1

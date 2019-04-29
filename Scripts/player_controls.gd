@@ -7,6 +7,7 @@ onready var walkVel : Vector2 = Vector2()
 
 onready var slashPivot = get_node("SlashPivot")
 onready var attackAnimPlayer : AnimationPlayer = get_node("AttackAnimationPlayer")
+onready var damageAnimPlayer : AnimationPlayer = get_node("DamageAnimationPlayer")
 
 onready var PROJECTILE_SPEED_SLOW = 150;
 onready var PROJECTILE_SPEED_FAST = 300;
@@ -54,6 +55,7 @@ func changeState(newState):
     currentState = newState
 
 func takeDamage(amount):
+    damageAnimPlayer.play("player_hurt_anim")
     health -= amount
     if health <= 0:
         health = 0
