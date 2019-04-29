@@ -1,0 +1,91 @@
+[gd_scene load_steps=6 format=2]
+
+[sub_resource type="Curve" id=2]
+max_value = 100.0
+_data = [ Vector2( 0, 100 ), 0.0, 0.0, 0, 0, Vector2( 0.11039, 100 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=3]
+curve = SubResource( 2 )
+
+[sub_resource type="ParticlesMaterial" id=1]
+emission_shape = 1
+emission_sphere_radius = 2.0
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 120.0
+initial_velocity_random = 0.8
+angular_velocity = 0.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+damping = 270.0
+damping_curve = SubResource( 3 )
+scale = 5.0
+scale_random = 1.0
+color = Color( 0.67451, 0.196078, 0.196078, 1 )
+
+[sub_resource type="ParticlesMaterial" id=4]
+emission_shape = 1
+emission_sphere_radius = 2.0
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 120.0
+initial_velocity_random = 0.8
+angular_velocity = 0.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+damping = 270.0
+damping_curve = SubResource( 3 )
+scale = 5.0
+scale_random = 1.0
+color = Color( 0.462745, 0.258824, 0.541176, 1 )
+
+[sub_resource type="ParticlesMaterial" id=5]
+emission_shape = 1
+emission_sphere_radius = 2.0
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 100.0
+initial_velocity_random = 0.8
+angular_velocity = 0.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+damping = 300.0
+damping_curve = SubResource( 3 )
+scale = 4.0
+scale_random = 1.0
+color = Color( 0.411765, 0.415686, 0.415686, 1 )
+
+[node name="DeathParticles" type="Node2D" groups=[
+"PermanentParticles",
+]]
+
+[node name="RedParticles" type="Particles2D" parent="."]
+pause_mode = 2
+emitting = false
+amount = 6
+lifetime = 1000.0
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource( 1 )
+
+[node name="PurpleParticles" type="Particles2D" parent="."]
+pause_mode = 2
+emitting = false
+amount = 6
+lifetime = 1000.0
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource( 4 )
+
+[node name="GrayParticles" type="Particles2D" parent="."]
+pause_mode = 2
+emitting = false
+amount = 6
+lifetime = 1000.0
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource( 5 )
+

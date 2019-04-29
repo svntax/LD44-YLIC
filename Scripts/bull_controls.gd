@@ -6,6 +6,7 @@ onready var moveSpeed = 64
 onready var chargeSpeed = 512;
 onready var player = get_tree().get_nodes_in_group("Players")[0]
 
+var deathParticles = load("res://Scenes/death_particles.tscn")
 
 onready var DEFAULT_DAMAGE = 8;
 onready var CHARGE_DAMAGE = 15;
@@ -39,13 +40,28 @@ onready var damageAnimPlayer = get_node("DamageAnimationPlayer")
 func faceThePlayer():
     get_node("Sprite").set_flip_h(player.global_position.x > self.global_position.x)
 
+func spawnBloodParticles(amount):
+    var particles = deathParticles.instance()
+    get_parent().add_child(particles)
+    get_parent().move_child(particles, 1)
+    particles.global_position = self.global_position
+
+    var redParticles : Particles2D = particles.get_node("RedParticles")
+    #var purpleParticles : Particles2D = particles.get_node("PurpleParticles")
+    redParticles.set_amount(amount)
+    #purpleParticles.set_amount(amount)
+    redParticles.restart()
+    #purpleParticles.restart()
+
 func takeDamage(damage):
     #Can't take damage if already dead
     if health <= 0:
         return
+    spawnBloodParticles(6)
     damageAnimPlayer.play("enemy_hurt_anim")
     health -= damage;
     if health <= 0:
+        spawnBloodParticles(16)
         arena.enemyDestroyed();
         queue_free();
 

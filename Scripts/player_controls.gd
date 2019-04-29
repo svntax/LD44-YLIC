@@ -62,6 +62,7 @@ func changeState(newState):
 func takeDamage(amount):
     #Don't play the hurt animation effect if already dead
     if health > 0:
+        SoundHandler.playerHurt.play()
         damageAnimPlayer.play("player_hurt_anim")
     health -= amount
     if health <= 0:

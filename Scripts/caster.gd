@@ -18,6 +18,8 @@ onready var teleport_timing = rand_range(TELEPORT_LOW_END, TELEPORT_HIGH_END);
 
 var enemy_projectile = load("res://Scenes/enemy_projectile.tscn")
 
+var deathParticles = load("res://Scenes/death_particles.tscn")
+
 onready var shotTimer = 5;
 
 onready var arena = get_tree().get_nodes_in_group("Arenas")[0]
@@ -31,6 +33,19 @@ onready var damageAnimPlayer = get_node("DamageAnimationPlayer")
 func faceThePlayer():
     get_node("Sprite").set_flip_h(player.global_position.x > self.global_position.x)
     
+func spawnBloodParticles(amount):
+    var particles = deathParticles.instance()
+    get_parent().add_child(particles)
+    get_parent().move_child(particles, 1)
+    particles.global_position = self.global_position
+
+    #var redParticles : Particles2D = particles.get_node("RedParticles")
+    var purpleParticles : Particles2D = particles.get_node("PurpleParticles")
+    #redParticles.set_amount(amount)
+    purpleParticles.set_amount(amount)
+    #redParticles.restart()
+    purpleParticles.restart()    
+
 func acceptable_position(targetLocation):
     var playerPos = player.global_position
     var dist = playerPos - targetLocation
@@ -60,9 +75,11 @@ func takeDamage(damage):
     #Can't take damage if already dead
     if health <= 0:
         return
+    spawnBloodParticles(4)
     damageAnimPlayer.play("enemy_hurt_anim")
     health -= damage;
     if health <= 0:
+        spawnBloodParticles(8)
         arena.enemyDestroyed();
         queue_free();
 
