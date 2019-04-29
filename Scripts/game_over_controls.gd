@@ -33,4 +33,5 @@ func _ready():
 
 func _on_ReturnButton_pressed():
     get_tree().paused = false
+    SoundHandler.gameOverTheme.stop()
     get_tree().change_scene("res://Scenes/main_menu.tscn")

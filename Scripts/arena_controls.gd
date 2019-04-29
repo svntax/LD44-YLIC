@@ -29,7 +29,7 @@ signal playerDeathAnimationFinished()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-    pass # Replace with function body.
+    SoundHandler.arenaTheme.play()
 
 func spawnNewLayout():
     for child in layoutRoot.get_children():

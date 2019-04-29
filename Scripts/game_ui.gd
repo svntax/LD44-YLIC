@@ -21,14 +21,15 @@ func _on_Player_healthChanged(newHealth):
     if newHealth <= 0 and not gameOver:
         gameOver = true
         animPlayer.stop()
+        SoundHandler.arenaTheme.stop()
         SoundHandler.playerDeath.play()
         transitions.play("player_death_transition")
 
 func _on_Arena_playerDeathAnimationFinished():
     gameOverRoot.get_node("GameOverUI").updateLabels()
     gameOverRoot.show()
+    SoundHandler.gameOverTheme.play()
     get_tree().paused = true
-
 
 func _on_AnimationPlayer_animation_finished(anim_name):
     if anim_name == "low_hp_anim":
