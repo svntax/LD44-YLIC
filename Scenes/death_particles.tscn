@@ -1,13 +1,13 @@
 [gd_scene load_steps=6 format=2]
 
-[sub_resource type="Curve" id=2]
+[sub_resource type="Curve" id=1]
 max_value = 100.0
 _data = [ Vector2( 0, 100 ), 0.0, 0.0, 0, 0, Vector2( 0.11039, 100 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=3]
-curve = SubResource( 2 )
+[sub_resource type="CurveTexture" id=2]
+curve = SubResource( 1 )
 
-[sub_resource type="ParticlesMaterial" id=1]
+[sub_resource type="ParticlesMaterial" id=3]
 emission_shape = 1
 emission_sphere_radius = 2.0
 flag_disable_z = true
@@ -19,7 +19,7 @@ angular_velocity = 0.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 damping = 270.0
-damping_curve = SubResource( 3 )
+damping_curve = SubResource( 2 )
 scale = 5.0
 scale_random = 1.0
 color = Color( 0.67451, 0.196078, 0.196078, 1 )
@@ -36,7 +36,7 @@ angular_velocity = 0.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 damping = 270.0
-damping_curve = SubResource( 3 )
+damping_curve = SubResource( 2 )
 scale = 5.0
 scale_random = 1.0
 color = Color( 0.462745, 0.258824, 0.541176, 1 )
@@ -53,10 +53,10 @@ angular_velocity = 0.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 damping = 300.0
-damping_curve = SubResource( 3 )
+damping_curve = SubResource( 2 )
 scale = 4.0
 scale_random = 1.0
-color = Color( 0.411765, 0.415686, 0.415686, 1 )
+color = Color( 0.294118, 0.411765, 0.184314, 1 )
 
 [node name="DeathParticles" type="Node2D" groups=[
 "PermanentParticles",
@@ -69,7 +69,7 @@ amount = 6
 lifetime = 1000.0
 one_shot = true
 explosiveness = 1.0
-process_material = SubResource( 1 )
+process_material = SubResource( 3 )
 
 [node name="PurpleParticles" type="Particles2D" parent="."]
 pause_mode = 2
@@ -81,6 +81,15 @@ explosiveness = 1.0
 process_material = SubResource( 4 )
 
 [node name="GrayParticles" type="Particles2D" parent="."]
+pause_mode = 2
+emitting = false
+amount = 6
+lifetime = 1000.0
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource( 5 )
+
+[node name="GreenParticles" type="Particles2D" parent="."]
 pause_mode = 2
 emitting = false
 amount = 6

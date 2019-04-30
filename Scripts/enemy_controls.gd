@@ -18,14 +18,30 @@ onready var movement_direction;
 
 onready var contact_damage = 4;
 
+onready var damageAnimPlayer = get_node("DamageAnimationPlayer")
+var deathParticles = load("res://Scenes/death_particles.tscn")
+
+func spawnBloodParticles(amount):
+    var particles = deathParticles.instance()
+    get_parent().add_child(particles)
+    get_parent().move_child(particles, 1)
+    particles.global_position = self.global_position
+
+    var greenParticles : Particles2D = particles.get_node("GreenParticles")
+    greenParticles.set_amount(amount)
+    greenParticles.restart()
+
 func takeDamage(damage):
     #Can't take damage if already dead
     if health <= 0:
         return
     health -= damage;
+    spawnBloodParticles(5)
+    damageAnimPlayer.play("enemy_hurt_anim")
     if health > 0:
         SoundHandler.enemyHurt.play()
     if health <= 0:
+        spawnBloodParticles(10)
         arena.enemyDestroyed();
         SoundHandler.basicEnemyDeath.play()
         queue_free();
@@ -64,4 +80,5 @@ func _physics_process(delta):
             movement_cooldown = rand_range(STOP_INTERVAL_LOW, STOP_INTERVAL_HIGH);
         else:
             self.move_and_slide(movement_direction.normalized() * moveSpeed)
+            get_node("Sprite").set_flip_h(movement_direction.x > 0)
 
