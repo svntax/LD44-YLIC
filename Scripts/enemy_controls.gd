@@ -9,9 +9,10 @@ onready var arena = get_tree().get_nodes_in_group("Arenas")[0]
 onready var STARTING_HEALTH = 10;
 onready var health = STARTING_HEALTH;
 
-onready var STOP_INTERVAL = 0.4;
+onready var STOP_INTERVAL_LOW = 0.15;
+onready var STOP_INTERVAL_HIGH = 0.3;
 onready var MOVEMENT_INTERVAL = 0.8;
-onready var movement_cooldown = 1;
+onready var movement_cooldown = 0.5;
 onready var movement_ttl = 0;
 onready var movement_direction;
 
@@ -60,7 +61,7 @@ func _physics_process(delta):
     if movement_ttl > 0:
         movement_ttl -= delta;
         if movement_ttl <= 0:
-            movement_cooldown = STOP_INTERVAL;
+            movement_cooldown = rand_range(STOP_INTERVAL_LOW, STOP_INTERVAL_HIGH);
         else:
             self.move_and_slide(movement_direction.normalized() * moveSpeed)
 

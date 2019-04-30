@@ -3,7 +3,7 @@ extends KinematicBody2D
 onready var AGGRO_RANGE = 100
 
 onready var moveSpeed = 64
-onready var chargeSpeed = 512;
+onready var chargeSpeed = 600;
 onready var player = get_tree().get_nodes_in_group("Players")[0]
 
 var deathParticles = load("res://Scenes/death_particles.tscn")
@@ -30,8 +30,8 @@ onready var random_move_y = 0;
 onready var random_move_duration = 0;
 onready var random_move_direction;
 onready var true_position;
-onready var random_move_low = 1.5;
-onready var random_move_high = 2.5;
+onready var random_move_low = 0.75;
+onready var random_move_high = 2.0;
 
 onready var arena = get_tree().get_nodes_in_group("Arenas")[0]
 onready var STARTING_HEALTH = 15;
@@ -96,7 +96,7 @@ func _physics_process(delta):
         if not charge_moving:
             faceThePlayer()
         if charging == false:
-            charge_rumble = 1.75;
+            charge_rumble = 1.25;
             true_position = position;
         charging = true;
        # print("beginning charge");
