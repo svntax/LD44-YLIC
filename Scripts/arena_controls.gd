@@ -22,7 +22,7 @@ var layout04 = load("res://Scenes/layout_04.tscn")
 var layout05 = load("res://Scenes/layout_05.tscn")
 
 var arenaLayouts = [
-layoutBasic,
+#layoutBasic,
 layout02,
 layout03,
 layout04,
