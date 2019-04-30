@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [sub_resource type="Curve" id=1]
 max_value = 100.0
@@ -15,7 +15,6 @@ spread = 180.0
 gravity = Vector3( 0, 0, 0 )
 initial_velocity = 120.0
 initial_velocity_random = 0.8
-angular_velocity = 0.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 damping = 270.0
@@ -32,7 +31,6 @@ spread = 180.0
 gravity = Vector3( 0, 0, 0 )
 initial_velocity = 120.0
 initial_velocity_random = 0.8
-angular_velocity = 0.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 damping = 270.0
@@ -49,7 +47,22 @@ spread = 180.0
 gravity = Vector3( 0, 0, 0 )
 initial_velocity = 100.0
 initial_velocity_random = 0.8
-angular_velocity = 0.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+damping = 300.0
+damping_curve = SubResource( 2 )
+scale = 4.0
+scale_random = 1.0
+color = Color( 0.411765, 0.415686, 0.415686, 1 )
+
+[sub_resource type="ParticlesMaterial" id=6]
+emission_shape = 1
+emission_sphere_radius = 2.0
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 100.0
+initial_velocity_random = 0.8
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 damping = 300.0
@@ -58,9 +71,26 @@ scale = 4.0
 scale_random = 1.0
 color = Color( 0.294118, 0.411765, 0.184314, 1 )
 
+[sub_resource type="ParticlesMaterial" id=7]
+emission_shape = 1
+emission_sphere_radius = 2.0
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 100.0
+initial_velocity_random = 0.8
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+damping = 300.0
+damping_curve = SubResource( 2 )
+scale = 4.0
+scale_random = 1.0
+color = Color( 0.247059, 0.247059, 0.454902, 1 )
+
 [node name="DeathParticles" type="Node2D" groups=[
 "PermanentParticles",
 ]]
+pause_mode = 2
 
 [node name="RedParticles" type="Particles2D" parent="."]
 pause_mode = 2
@@ -96,5 +126,14 @@ amount = 6
 lifetime = 1000.0
 one_shot = true
 explosiveness = 1.0
-process_material = SubResource( 5 )
+process_material = SubResource( 6 )
+
+[node name="BlueParticles" type="Particles2D" parent="."]
+pause_mode = 2
+emitting = false
+amount = 6
+lifetime = 1000.0
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource( 7 )
 

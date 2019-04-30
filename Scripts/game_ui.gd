@@ -8,6 +8,18 @@ onready var animPlayer = get_node("AnimationPlayer")
 
 onready var gameOver = false
 
+var deathParticles = load("res://Scenes/death_particles.tscn")
+
+func spawnBloodParticles(amount):
+    var particles = deathParticles.instance()
+    get_parent().get_parent().add_child(particles)
+    get_parent().get_parent().move_child(particles, 1)
+    particles.global_position = player.global_position
+
+    var blueParticles : Particles2D = particles.get_node("BlueParticles")
+    blueParticles.set_amount(amount)
+    blueParticles.restart()
+
 func _ready():
     healthLabel.set_text("HP " + str(Globals.CURRENT_HEALTH))
 
@@ -20,9 +32,12 @@ func _on_Player_healthChanged(newHealth):
         animPlayer.play("reset_text_color")
     if newHealth <= 0 and not gameOver:
         gameOver = true
+        player.get_node("Sprite").hide()
+        player.get_node("DeadSprite").show()
         animPlayer.stop()
         SoundHandler.arenaTheme.stop()
         SoundHandler.playerDeath.play()
+        spawnBloodParticles(10)
         transitions.play("player_death_transition")
 
 func _on_Arena_playerDeathAnimationFinished():
